@@ -82,6 +82,8 @@
     background: var(--map-bg) !important;
   }
 
+  body.light-mode .nav-tabs { background: rgba(244, 241, 235, 0.95); }
+
   body.light-mode .wc-setup,
   body.light-mode .wc-game,
   body.light-mode .wc-results {
@@ -181,9 +183,13 @@
     gap: 0;
     padding: 0 40px;
     border-bottom: 1px solid var(--border);
-    background: rgba(10, 14, 26, 0.8);
+    background: rgba(10, 14, 26, 0.8); /* overridden in light mode */
     backdrop-filter: blur(10px);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* Firefox */
   }
+  .nav-tabs::-webkit-scrollbar { display: none; } /* Chrome/Safari */
 
   .tab-btn {
     background: none;
@@ -877,10 +883,172 @@
   .feedback-msg.correct { background: rgba(79,195,161,0.12); color: var(--correct); border: 1px solid rgba(79,195,161,0.3); }
   .feedback-msg.wrong { background: rgba(232,105,74,0.1); color: var(--wrong); border: 1px solid rgba(232,105,74,0.3); }
 
+  /* ── POPULATION HIGHER/LOWER ── */
+  .pop-arena {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 12px;
+    align-items: stretch;
+    margin: 8px 0 16px;
+  }
+  .pop-card {
+    background: var(--surface);
+    border: 2px solid var(--border);
+    border-radius: 14px;
+    padding: 22px 18px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s, transform 0.15s;
+    position: relative;
+    overflow: hidden;
+  }
+  .pop-card:hover:not(:disabled):not(.pop-revealed) {
+    border-color: var(--accent2);
+    background: var(--surface2);
+    transform: translateY(-2px);
+  }
+  .pop-card.pop-correct {
+    border-color: var(--correct);
+    background: rgba(79,195,161,0.1);
+    animation: popPulse 0.4s ease;
+  }
+  .pop-card.pop-wrong {
+    border-color: var(--wrong);
+    background: rgba(232,105,74,0.08);
+  }
+  @keyframes popPulse {
+    0%   { transform: scale(1); }
+    40%  { transform: scale(1.03); }
+    100% { transform: scale(1); }
+  }
+  .pop-card-flag {
+    font-size: 40px;
+    line-height: 1;
+  }
+  .pop-card-img {
+    width: 72px;
+    height: auto;
+    border-radius: 5px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+  }
+  .pop-card-name {
+    font-family: var(--sans);
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text);
+    text-align: center;
+    line-height: 1.3;
+  }
+  .pop-card-region {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .pop-card-pop {
+    font-family: var(--mono);
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--accent2);
+    margin-top: 4px;
+  }
+  .pop-card-pop.hidden-pop {
+    color: var(--text-faint);
+    font-size: 14px;
+    letter-spacing: 0.1em;
+  }
+  .pop-vs {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-faint);
+    letter-spacing: 0.1em;
+    padding: 8px 4px;
+    user-select: none;
+  }
+  .pop-hint {
+    text-align: center;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-faint);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .pop-streak-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text-dim);
+  }
+  .pop-streak-val {
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 16px;
+  }
+  .pop-result-msg {
+    text-align: center;
+    font-family: var(--mono);
+    font-size: 13px;
+    padding: 10px 16px;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    display: none;
+  }
+  .pop-result-msg.show { display: block; }
+  .pop-result-msg.correct { color: var(--correct); background: rgba(79,195,161,0.1); border: 1px solid rgba(79,195,161,0.25); }
+  .pop-result-msg.wrong   { color: var(--wrong);   background: rgba(232,105,74,0.08); border: 1px solid rgba(232,105,74,0.25); }
+  @media (max-width: 640px) {
+    .pop-arena { grid-template-columns: 1fr; }
+    .pop-vs { padding: 2px; }
+    .pop-card-pop { font-size: 18px; }
+  }
+
+  /* ── STICKY NEXT BAR ── */
+  .next-bar {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    animation: slideDown 0.2s ease;
+  }
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .next-bar-btn {
+    flex: 1;
+    padding: 12px 20px;
+    font-size: 15px;
+  }
+  .next-bar-end {
+    padding: 12px 16px;
+    white-space: nowrap;
+  }
+
   /* ── RESPONSIVE ── */
   @media (max-width: 640px) {
     header { padding: 16px 20px; }
-    .nav-tabs { padding: 0 20px; }
+    .nav-tabs { padding: 0 12px; }
+    .tab-btn { padding: 14px 16px; font-size: 11px; white-space: nowrap; }
     main { padding: 24px 20px; }
     .options-grid { grid-template-columns: 1fr; }
     .modal-facts { grid-template-columns: 1fr; }
@@ -1747,6 +1915,12 @@
         <p>Which language is official in this country? From Swahili to Slovenian.</p>
         <span class="mode-tag tag-green">Multiple Choice</span>
       </div>
+      <div class="mode-card" onclick="startQuiz('population')" style="--nth:7">
+        <span class="mode-icon">👥</span>
+        <h3>Population: Higher or Lower?</h3>
+        <p>Two countries appear side by side — guess which has the larger population. How far can your streak go?</p>
+        <span class="mode-tag tag-red">Higher / Lower</span>
+      </div>
       <div class="mode-card wc-home-card" onclick="showView('worldchallenge')" style="grid-column:1/-1;border-color:rgba(232,197,71,0.35);background:linear-gradient(135deg,rgba(232,197,71,0.07) 0%,rgba(79,195,161,0.05) 100%)">
         <span class="mode-icon">🌍</span>
         <h3 style="font-size:24px">World Challenge <span style="color:var(--accent);font-size:14px;font-family:var(--mono);font-weight:400;letter-spacing:0.06em;text-transform:uppercase;vertical-align:middle;margin-left:8px;">Flagship Mode</span></h3>
@@ -1832,6 +2006,8 @@
         <div class="options-grid" id="options-grid"></div>
       </div>
 
+      <div id="population-area" style="display:none"></div>
+
       <div id="typing-area" style="display:none">
         <div class="type-input-wrap">
           <input type="text" class="type-input" id="type-input" placeholder="Type country name..." autocomplete="off" autocorrect="off" spellcheck="false">
@@ -1843,12 +2019,13 @@
         </div>
       </div>
 
-      <div class="country-info" id="country-info"></div>
-
-      <div class="action-row" id="next-row" style="display:none">
-        <button class="btn-primary" onclick="nextQuestion()">Next Question →</button>
-        <button class="btn-ghost" onclick="endQuiz()">End Quiz</button>
+      <!-- Sticky next bar — slides down from top when answer revealed -->
+      <div id="next-bar" class="next-bar" style="display:none">
+        <button class="btn-primary next-bar-btn" onclick="nextQuestion()">Next →</button>
+        <button class="btn-ghost next-bar-end" onclick="endQuiz()">End Quiz</button>
       </div>
+
+      <div class="country-info" id="country-info"></div>
     </div>
 
     <div id="quiz-results" style="display:none">
@@ -1902,25 +2079,34 @@
       <h2>🌍 World Challenge</h2>
       <p>Name every country on Earth. The world map lights up green as you find them.<br>Set your timer and see how many you can name before time runs out.</p>
 
-      <div style="margin-bottom:12px">
-        <div style="font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-faint);margin-bottom:14px">Choose your time limit</div>
-        <div class="wc-timer-presets">
-          <button class="wc-preset-btn" onclick="wcSelectPreset(5,this)">5 min</button>
-          <button class="wc-preset-btn active" onclick="wcSelectPreset(10,this)">10 min</button>
-          <button class="wc-preset-btn" onclick="wcSelectPreset(15,this)">15 min</button>
-          <button class="wc-preset-btn" onclick="wcSelectPreset(20,this)">20 min</button>
-          <button class="wc-preset-btn" onclick="wcSelectPreset(null,this)">Custom</button>
+      <div style="margin-bottom:20px">
+        <div style="font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-faint);margin-bottom:10px">Timer mode</div>
+        <div class="wc-timer-presets" style="margin-bottom:16px">
+          <button class="wc-preset-btn active" id="wc-mode-countdown" onclick="wcSetMode('countdown',this)">⏱ Countdown</button>
+          <button class="wc-preset-btn" id="wc-mode-stopwatch" onclick="wcSetMode('stopwatch',this)">⏳ Stopwatch</button>
+        </div>
+        <div id="wc-countdown-opts">
+          <div style="font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-faint);margin-bottom:10px">Time limit</div>
+          <div class="wc-timer-presets">
+            <button class="wc-preset-btn" onclick="wcSelectPreset(5,this)">5 min</button>
+            <button class="wc-preset-btn active" onclick="wcSelectPreset(10,this)">10 min</button>
+            <button class="wc-preset-btn" onclick="wcSelectPreset(15,this)">15 min</button>
+            <button class="wc-preset-btn" onclick="wcSelectPreset(20,this)">20 min</button>
+            <button class="wc-preset-btn" onclick="wcSelectPreset(null,this)">Custom</button>
+          </div>
+          <div class="wc-custom-row" id="wc-custom-row" style="display:none">
+            <label>Minutes:</label>
+            <input type="number" class="wc-custom-input" id="wc-custom-mins" min="1" max="60" value="12" oninput="wcSetCustom()">
+            <span style="font-family:var(--mono);font-size:12px;color:var(--text-dim)">min</span>
+          </div>
+        </div>
+        <div id="wc-stopwatch-opts" style="display:none">
+          <div style="font-family:var(--mono);font-size:12px;color:var(--text-dim);padding:8px 0">Timer counts up — stop whenever you like or find all countries.</div>
         </div>
       </div>
 
-      <div class="wc-custom-row" id="wc-custom-row" style="display:none">
-        <label>Minutes:</label>
-        <input type="number" class="wc-custom-input" id="wc-custom-mins" min="1" max="60" value="12" oninput="wcSetCustom()">
-        <span style="font-family:var(--mono);font-size:12px;color:var(--text-dim)">min</span>
-      </div>
-
       <div style="margin-bottom:28px;font-family:var(--mono);font-size:13px;color:var(--text-dim)">
-        Selected: <span id="wc-selected-time" style="color:var(--accent)">10:00</span>
+        Mode: <span id="wc-selected-time" style="color:var(--accent)">10:00 countdown</span>
       </div>
 
       <button class="btn-primary" onclick="wcStartGame()" style="font-size:15px;padding:16px 40px;margin-bottom:40px">Start World Challenge →</button>
@@ -1962,7 +2148,7 @@
 
       <div class="wc-input-row">
         <input type="text" class="wc-type-input" id="wc-input" placeholder="Type a country name…" oninput="wcCheckInput()" autocomplete="off" autocorrect="off" spellcheck="false">
-        <button class="wc-give-up-btn" onclick="wcGiveUp()">Give Up</button>
+        <button class="wc-give-up-btn" id="wc-give-up-btn" onclick="wcGiveUp()">Give Up</button>
       </div>
 
       <div class="wc-found-ticker" id="wc-found-ticker"></div>
@@ -2041,18 +2227,30 @@
       <h2>🇺🇸 USA Challenge</h2>
       <p>Name all 50 US states against the clock. Each correct answer lights the state green on the map. How many can you get?</p>
 
-      <div class="wc-timer-presets">
-        <button class="wc-preset-btn active" onclick="usaSelectPreset(5, this)">5 min</button>
-        <button class="wc-preset-btn" onclick="usaSelectPreset(10, this)">10 min</button>
-        <button class="wc-preset-btn" onclick="usaSelectPreset(15, this)">15 min</button>
-        <button class="wc-preset-btn" onclick="usaSelectPreset(null, this)">Custom</button>
-      </div>
-      <div class="wc-custom-row" id="usa-custom-row" style="display:none">
-        <label>Minutes:</label>
-        <input type="number" class="wc-custom-input" id="usa-custom-mins" min="1" max="60" value="10" oninput="usaSetCustom()">
+      <div style="margin-bottom:20px">
+        <div style="font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-faint);margin-bottom:10px">Timer mode</div>
+        <div class="wc-timer-presets" style="margin-bottom:16px">
+          <button class="wc-preset-btn active" id="usa-mode-countdown" onclick="usaSetMode('countdown',this)">⏱ Countdown</button>
+          <button class="wc-preset-btn" id="usa-mode-stopwatch" onclick="usaSetMode('stopwatch',this)">⏳ Stopwatch</button>
+        </div>
+        <div id="usa-countdown-opts">
+          <div class="wc-timer-presets">
+            <button class="wc-preset-btn active" onclick="usaSelectPreset(5, this)">5 min</button>
+            <button class="wc-preset-btn" onclick="usaSelectPreset(10, this)">10 min</button>
+            <button class="wc-preset-btn" onclick="usaSelectPreset(15, this)">15 min</button>
+            <button class="wc-preset-btn" onclick="usaSelectPreset(null, this)">Custom</button>
+          </div>
+          <div class="wc-custom-row" id="usa-custom-row" style="display:none">
+            <label>Minutes:</label>
+            <input type="number" class="wc-custom-input" id="usa-custom-mins" min="1" max="60" value="5" oninput="usaSetCustom()">
+          </div>
+        </div>
+        <div id="usa-stopwatch-opts" style="display:none">
+          <div style="font-family:var(--mono);font-size:12px;color:var(--text-dim);padding:8px 0">Timer counts up — stop whenever you like or name all 50 states.</div>
+        </div>
       </div>
       <div style="margin-bottom:28px;font-family:var(--mono);font-size:13px;color:var(--text-dim)">
-        Selected: <span id="usa-selected-time" style="color:var(--accent2)">5:00</span>
+        Mode: <span id="usa-selected-time" style="color:var(--accent2)">5:00 countdown</span>
       </div>
 
       <button class="btn-primary" onclick="usaStartGame()" style="font-size:15px;padding:16px 40px;margin-bottom:40px;background:var(--accent2);color:#0a0e1a">Start USA Challenge →</button>
@@ -2093,7 +2291,7 @@
 
       <div class="wc-input-row">
         <input type="text" class="wc-type-input" id="usa-input" placeholder="Type a state name…" oninput="usaCheckInput()" autocomplete="off" autocorrect="off" spellcheck="false">
-        <button class="wc-give-up-btn" onclick="usaGiveUp()">Give Up</button>
+        <button class="wc-give-up-btn" id="usa-give-up-btn" onclick="usaGiveUp()">Give Up</button>
       </div>
 
       <div class="wc-found-ticker" id="usa-found-ticker"></div>
@@ -2166,18 +2364,30 @@
       <h2>🇪🇺 Europe Challenge</h2>
       <p>Name all the countries of Europe against the clock. Each correct answer lights the country green on the map. How many can you get?</p>
 
-      <div class="wc-timer-presets">
-        <button class="wc-preset-btn active" onclick="euSelectPreset(5, this)">5 min</button>
-        <button class="wc-preset-btn" onclick="euSelectPreset(10, this)">10 min</button>
-        <button class="wc-preset-btn" onclick="euSelectPreset(15, this)">15 min</button>
-        <button class="wc-preset-btn" onclick="euSelectPreset(null, this)">Custom</button>
-      </div>
-      <div class="wc-custom-row" id="eu-custom-row" style="display:none">
-        <label>Minutes:</label>
-        <input type="number" class="wc-custom-input" id="eu-custom-mins" min="1" max="60" value="5" oninput="euSetCustom()">
+      <div style="margin-bottom:20px">
+        <div style="font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-faint);margin-bottom:10px">Timer mode</div>
+        <div class="wc-timer-presets" style="margin-bottom:16px">
+          <button class="wc-preset-btn active" id="eu-mode-countdown" onclick="euSetMode('countdown',this)">⏱ Countdown</button>
+          <button class="wc-preset-btn" id="eu-mode-stopwatch" onclick="euSetMode('stopwatch',this)">⏳ Stopwatch</button>
+        </div>
+        <div id="eu-countdown-opts">
+          <div class="wc-timer-presets">
+            <button class="wc-preset-btn active" onclick="euSelectPreset(5, this)">5 min</button>
+            <button class="wc-preset-btn" onclick="euSelectPreset(10, this)">10 min</button>
+            <button class="wc-preset-btn" onclick="euSelectPreset(15, this)">15 min</button>
+            <button class="wc-preset-btn" onclick="euSelectPreset(null, this)">Custom</button>
+          </div>
+          <div class="wc-custom-row" id="eu-custom-row" style="display:none">
+            <label>Minutes:</label>
+            <input type="number" class="wc-custom-input" id="eu-custom-mins" min="1" max="60" value="5" oninput="euSetCustom()">
+          </div>
+        </div>
+        <div id="eu-stopwatch-opts" style="display:none">
+          <div style="font-family:var(--mono);font-size:12px;color:var(--text-dim);padding:8px 0">Timer counts up — stop whenever you like or name all 44 countries.</div>
+        </div>
       </div>
       <div style="margin-bottom:28px;font-family:var(--mono);font-size:13px;color:var(--text-dim)">
-        Selected: <span id="eu-selected-time" style="color:#a78bfa">5:00</span>
+        Mode: <span id="eu-selected-time" style="color:#a78bfa">5:00 countdown</span>
       </div>
 
       <button class="btn-primary" onclick="euStartGame()" style="font-size:15px;padding:16px 40px;margin-bottom:40px;background:#7c5cbf;color:#fff">Start Europe Challenge →</button>
@@ -2218,7 +2428,7 @@
 
       <div class="wc-input-row">
         <input type="text" class="wc-type-input" id="eu-input" placeholder="Type a European country…" oninput="euCheckInput()" autocomplete="off" autocorrect="off" spellcheck="false">
-        <button class="wc-give-up-btn" onclick="euGiveUp()">Give Up</button>
+        <button class="wc-give-up-btn" id="eu-give-up-btn" onclick="euGiveUp()">Give Up</button>
       </div>
 
       <div class="wc-found-ticker" id="eu-found-ticker"></div>
@@ -2328,11 +2538,21 @@
 // Convert flag emoji → ISO 2-letter code → flagcdn.com img
 function flagToISO(flagEmoji) {
   if (!flagEmoji) return null;
-  const codePoints = [...flagEmoji].map(c => c.codePointAt(0));
-  const letters = codePoints
-    .filter(cp => cp >= 0x1F1E6 && cp <= 0x1F1FF)
-    .map(cp => String.fromCharCode(cp - 0x1F1E6 + 65));
-  return letters.length === 2 ? letters.join('').toLowerCase() : null;
+  try {
+    // Use codePointAt with manual index stepping — works on all browsers incl. Safari
+    const cps = [];
+    for (let i = 0; i < flagEmoji.length; ) {
+      const cp = flagEmoji.codePointAt(i);
+      cps.push(cp);
+      i += cp > 0xFFFF ? 2 : 1; // surrogate pairs take 2 chars
+    }
+    const letters = cps
+      .filter(cp => cp >= 0x1F1E6 && cp <= 0x1F1FF)
+      .map(cp => String.fromCharCode(cp - 0x1F1E6 + 65));
+    return letters.length === 2 ? letters.join('').toLowerCase() : null;
+  } catch(e) {
+    return null;
+  }
 }
 
 // Returns an <img> HTML string for a flag, with emoji fallback
@@ -2670,7 +2890,7 @@ function startDailyChallenge() {
   if (localStorage.getItem(getDailyKey())) return;
   currentMode = 'daily';
   isDailyChallenge = true;
-  const modes = ['flags', 'capitals', 'regions', 'flags', 'capitals', 'typing', 'flags', 'capitals', 'regions', 'flags'];
+  const modes = ['flags', 'capitals', 'population', 'flags', 'capitals', 'typing', 'flags', 'population', 'regions', 'flags'];
   const shuffled = seededShuffle(COUNTRIES, getDailySeed());
   quizQueue = shuffled.slice(0, 10);
   dailyModes = modes;
@@ -2710,6 +2930,13 @@ function showView(id) {
   });
   if (id === 'encyclopedia') renderEncyclopedia();
   if (id === 'home') { renderHomeStats(); initDailyCard(); }
+  if (id === 'quiz') {
+    // Always return to setup when navigating to Quiz via tab
+    // so a mid-game or results state never shows as blank
+    document.getElementById('quiz-setup').style.display = 'block';
+    document.getElementById('quiz-game').style.display = 'none';
+    document.getElementById('quiz-results').style.display = 'none';
+  }
   if (id === 'worldchallenge') {
     wcBackToSetup();
   }
@@ -2730,7 +2957,7 @@ function startQuiz(mode) {
   const titles = {
     flags: 'Flag Recognition', capitals: 'Capital Cities',
     regions: 'Continents & Regions', typing: 'Type the Country',
-    currency: 'Currency Quiz', language: 'Language Quiz'
+    currency: 'Currency Quiz', language: 'Language Quiz', population: 'Population: Higher or Lower?'
   };
   const descs = {
     flags: 'See a flag — name the country.',
@@ -2738,7 +2965,8 @@ function startQuiz(mode) {
     regions: 'Which continent or region does this country belong to?',
     typing: 'See the flag and capital — type the country name.',
     currency: 'What currency does this country use?',
-    language: 'What is the official language of this country?'
+    language: 'What is the official language of this country?',
+    population: 'Which country has the larger population?'
   };
   document.getElementById('quiz-mode-title').textContent = titles[mode];
   document.getElementById('quiz-mode-desc').textContent = descs[mode];
@@ -2753,9 +2981,18 @@ function beginQuiz() {
   const region = document.getElementById('quiz-region').value;
   const count = document.getElementById('quiz-count').value;
   let pool = region === 'all' ? [...COUNTRIES] : COUNTRIES.filter(c => c.region === region);
+  if (pool.length === 0) {
+    alert('No countries found for that region. Please choose a different region.');
+    return;
+  }
   shuffle(pool);
   quizQueue = count === 'all' ? pool : pool.slice(0, Math.min(parseInt(count), pool.length));
+  if (quizQueue.length === 0) {
+    alert('Not enough countries to start a quiz. Please adjust your settings.');
+    return;
+  }
   currentQ = 0; correctCount = 0; wrongCount = 0; answered = false; answerHistory = [];
+  if (currentMode === 'population') popStreak = 0;
   document.getElementById('quiz-setup').style.display = 'none';
   document.getElementById('quiz-results').style.display = 'none';
   document.getElementById('quiz-game').style.display = 'block';
@@ -2783,8 +3020,24 @@ function updateProgressBar() {
 }
 
 function renderQuestion() {
+  try {
+    _renderQuestionInner();
+  } catch(err) {
+    console.error('renderQuestion error:', err);
+    // Show a safe recovery UI rather than a blank screen
+    document.getElementById('q-text').innerHTML = '<div style="color:var(--wrong);font-family:var(--mono);font-size:13px">⚠ Error loading question. Skipping…</div>';
+    document.getElementById('options-area').style.display = 'none';
+    document.getElementById('typing-area').style.display = 'none';
+    document.getElementById('population-area').style.display = 'none';
+    document.getElementById('next-bar').style.display = 'flex';
+    answered = true; // allow Next to work
+  }
+}
+
+function _renderQuestionInner() {
   if (currentQ >= quizQueue.length) { endQuiz(); return; }
   const c = quizQueue[currentQ];
+  if (!c) { endQuiz(); return; }
   const mode = getActiveMode();
   answered = false;
 
@@ -2795,7 +3048,7 @@ function renderQuestion() {
   document.getElementById('q-num-label').textContent = `Question ${currentQ + 1} of ${quizQueue.length}`;
   updateProgressBar();
   document.getElementById('country-info').classList.remove('show');
-  document.getElementById('next-row').style.display = 'none';
+  document.getElementById('next-bar').style.display = 'none';
   // reset grid column for non-region modes
   document.getElementById('options-grid').style.gridTemplateColumns = '';
 
@@ -2814,6 +3067,8 @@ function renderQuestion() {
   } else if (mode === 'language') {
     document.getElementById('q-text').innerHTML = `<div class="flag-question-wrap">${flagImg(c.flag, 28)} <span>What is the official language of <strong>${c.name}</strong>?</span></div>`;
     renderOptions(c, 'language');
+  } else if (mode === 'population') {
+    renderPopulationQuestion(c);
   } else if (mode === 'typing') {
     document.getElementById('q-text').innerHTML = `<div class="flag-question-wrap"><img src="https://flagcdn.com/w160/${flagToISO(c.flag)}.png" class="flag-question-img" alt="flag"><span>Capital: <strong>${c.capital}</strong> — Name this country</span></div>`;
     document.getElementById('options-area').style.display = 'none';
@@ -2824,20 +3079,27 @@ function renderQuestion() {
     document.getElementById('feedback-msg').className = 'feedback-msg';
     document.getElementById('feedback-msg').textContent = '';
     setTimeout(() => inp.focus(), 100);
-    inp.onkeydown = (e) => { if (e.key === 'Enter') submitTyping(); };
+    inp.onkeydown = (e) => { if (e.key === 'Enter' && !answered) submitTyping(); };
   }
 
-  if (mode !== 'typing') {
+  if (mode !== 'typing' && mode !== 'population') {
     document.getElementById('options-area').style.display = 'block';
     document.getElementById('typing-area').style.display = 'none';
   }
-}
+  if (mode !== 'population') {
+    document.getElementById('population-area').style.display = 'none';
+  }
+} // end _renderQuestionInner
 
 function renderOptions(correct, field) {
+  if (!correct || !correct[field]) {
+    // Field missing — skip this question
+    answered = true; nextQuestion(); return;
+  }
   // Prefer distractors from same subregion, then same region, then random
-  let sameSubregion = COUNTRIES.filter(c => c !== correct && c.subregion === correct.subregion && c[field] !== correct[field]);
-  let sameRegion    = COUNTRIES.filter(c => c !== correct && c.region === correct.region && c.subregion !== correct.subregion && c[field] !== correct[field]);
-  let other         = COUNTRIES.filter(c => c !== correct && c.region !== correct.region && c[field] !== correct[field]);
+  let sameSubregion = COUNTRIES.filter(c => c !== correct && c[field] && c.subregion === correct.subregion && c[field] !== correct[field]);
+  let sameRegion    = COUNTRIES.filter(c => c !== correct && c[field] && c.region === correct.region && c.subregion !== correct.subregion && c[field] !== correct[field]);
+  let other         = COUNTRIES.filter(c => c !== correct && c[field] && c.region !== correct.region && c[field] !== correct[field]);
   shuffle(sameSubregion); shuffle(sameRegion); shuffle(other);
   const pool = [...sameSubregion, ...sameRegion, ...other];
   const opts = [correct, pool[0], pool[1], pool[2]].filter(Boolean);
@@ -2886,7 +3148,7 @@ function checkAnswer(btn, chosen, correct, cname) {
   const c = quizQueue[currentQ];
   answerHistory.push({ country: c, correct: isCorrect, given: chosen });
   showCountryInfo(c);
-  document.getElementById('next-row').style.display = 'flex';
+  document.getElementById('next-bar').style.display = 'flex';
 }
 
 // ── Improved typing mode answer check ──
@@ -2927,7 +3189,7 @@ function submitTyping() {
   answerHistory.push({ country: c, correct: isCorrect, given: val });
   document.getElementById('submit-type-btn').disabled = true;
   showCountryInfo(c);
-  document.getElementById('next-row').style.display = 'flex';
+  document.getElementById('next-bar').style.display = 'flex';
 }
 
 function skipTyping() {
@@ -2942,11 +3204,13 @@ function skipTyping() {
   answerHistory.push({ country: c, correct: false, given: '(skipped)' });
   document.getElementById('submit-type-btn').disabled = true;
   showCountryInfo(c);
-  document.getElementById('next-row').style.display = 'flex';
+  document.getElementById('next-bar').style.display = 'flex';
 }
 
 function showCountryInfo(c) {
+  if (!c) return;
   const el = document.getElementById('country-info');
+  if (!el) return;
   const iso = flagToISO(c.flag);
   el.innerHTML = `
     <div class="country-info-top">
@@ -2970,8 +3234,14 @@ function showCountryInfo(c) {
 
 function nextQuestion() {
   currentQ++;
+  const nb = document.getElementById('next-bar');
+  if (nb) nb.style.display = 'none';
+  const ci = document.getElementById('country-info');
+  if (ci) { ci.classList.remove('show'); ci.innerHTML = ''; }
   if (currentQ >= quizQueue.length) { endQuiz(); return; }
-  document.getElementById('submit-type-btn').disabled = false;
+  if (!quizQueue[currentQ]) { endQuiz(); return; }
+  const stb = document.getElementById('submit-type-btn');
+  if (stb) stb.disabled = false;
   renderQuestion();
 }
 
@@ -3146,6 +3416,156 @@ document.addEventListener('keydown', e => {
 });
 
 
+
+// ═══════════════════════════════════════════════════════
+// POPULATION HIGHER / LOWER QUIZ
+// ═══════════════════════════════════════════════════════
+
+function parsePop(popStr) {
+  if (!popStr) return 0;
+  const s = popStr.toString().replace(/,/g, '').trim();
+  const m = s.match(/^([\d.]+)([BKMG]?)/i);
+  if (!m) return parseFloat(s) || 0;
+  const n = parseFloat(m[1]);
+  const suffix = m[2].toUpperCase();
+  if (suffix === 'B') return n * 1e9;
+  if (suffix === 'M') return n * 1e6;
+  if (suffix === 'K') return n * 1e3;
+  return n;
+}
+
+function fmtPop(n) {
+  if (n >= 1e9) return (n / 1e9).toFixed(2).replace(/\.?0+$/, '') + 'B';
+  if (n >= 1e6) return (n / 1e6).toFixed(1).replace(/\.?0+$/, '') + 'M';
+  if (n >= 1e3) return (n / 1e3).toFixed(0) + 'K';
+  return n.toString();
+}
+
+let popCountryA = null;
+let popCountryB = null;
+let popStreak = 0;
+let popBestStreak = 0;
+
+function renderPopulationQuestion(countryA) {
+  document.getElementById('options-area').style.display = 'none';
+  document.getElementById('typing-area').style.display = 'none';
+  const area = document.getElementById('population-area');
+  area.style.display = 'block';
+
+  const popA = parsePop(countryA.pop);
+  if (!popA) { answered = true; nextQuestion(); return; }
+
+  let pool = COUNTRIES.filter(function(c) { return c !== countryA && c.pop && parsePop(c.pop) > 0; });
+  if (pool.length < 1) { answered = true; nextQuestion(); return; }
+  shuffle(pool);
+
+  var countryB = pool.find(function(c) {
+    var pb = parsePop(c.pop);
+    var ratio = Math.max(popA, pb) / Math.max(Math.min(popA, pb), 1);
+    return ratio < 50 && ratio > 1.05;
+  }) || pool[0];
+
+  popCountryA = countryA;
+  popCountryB = countryB;
+
+  try { popBestStreak = JSON.parse(localStorage.getItem('pop_best') || '0'); } catch(e) {}
+
+  var isoA = flagToISO(countryA.flag) || 'un';
+  var isoB = flagToISO(countryB.flag) || 'un';
+  var popBval = parsePop(countryB.pop);
+
+  var html = '<div class="pop-streak-bar">';
+  html += '<span>Streak:</span>';
+  html += '<span class="pop-streak-val" id="pop-streak-val">' + popStreak + '</span>';
+  html += '<span style="margin-left:auto;color:var(--text-faint)">Best: <strong style="color:var(--accent)">' + popBestStreak + '</strong></span>';
+  html += '</div>';
+  html += '<div class="pop-hint">Tap the country with the larger population</div>';
+  html += '<div class="pop-arena">';
+
+  // Card A — population always shown
+  html += '<div class="pop-card" id="pop-card-a" onclick="popAnswer(\'a\')">';
+  html += '<img class="pop-card-img" src="https://flagcdn.com/w80/' + isoA + '.png" alt="' + countryA.name + '">';
+  html += '<div class="pop-card-name">' + countryA.name + '</div>';
+  html += '<div class="pop-card-region">' + countryA.subregion + '</div>';
+  html += '<div class="pop-card-pop">' + fmtPop(popA) + '</div>';
+  html += '</div>';
+
+  // VS divider
+  html += '<div class="pop-vs">VS</div>';
+
+  // Card B — population hidden
+  html += '<div class="pop-card" id="pop-card-b" onclick="popAnswer(\'b\')">';
+  html += '<img class="pop-card-img" src="https://flagcdn.com/w80/' + isoB + '.png" alt="' + countryB.name + '">';
+  html += '<div class="pop-card-name">' + countryB.name + '</div>';
+  html += '<div class="pop-card-region">' + countryB.subregion + '</div>';
+  html += '<div class="pop-card-pop hidden-pop" id="pop-pop-b">??? tap to guess higher</div>';
+  html += '</div>';
+
+  html += '</div>';
+  html += '<div class="pop-result-msg" id="pop-result-msg"></div>';
+
+  area.innerHTML = html;
+}
+
+function popAnswer(choice) {
+  if (answered) return;
+  answered = true;
+
+  var popA = parsePop(popCountryA.pop);
+  var popB = parsePop(popCountryB.pop);
+
+  // Reveal B's population
+  var popBEl = document.getElementById('pop-pop-b');
+  if (popBEl) { popBEl.textContent = fmtPop(popB); popBEl.className = 'pop-card-pop'; }
+
+  var aIsHigher = popA >= popB;
+  var correct = (choice === 'a' && aIsHigher) || (choice === 'b' && !aIsHigher);
+
+  var cardA = document.getElementById('pop-card-a');
+  var cardB = document.getElementById('pop-card-b');
+  var winCard = aIsHigher ? cardA : cardB;
+  var loseCard = aIsHigher ? cardB : cardA;
+
+  if (winCard) winCard.classList.add('pop-correct');
+  if (!correct && loseCard) loseCard.classList.add('pop-wrong');
+  if (cardA) cardA.classList.add('pop-revealed');
+  if (cardB) cardB.classList.add('pop-revealed');
+
+  var msg = document.getElementById('pop-result-msg');
+  var bigger = aIsHigher ? popCountryA.name : popCountryB.name;
+
+  if (correct) {
+    popStreak++;
+    if (popStreak > popBestStreak) {
+      popBestStreak = popStreak;
+      try { localStorage.setItem('pop_best', JSON.stringify(popBestStreak)); } catch(e) {}
+    }
+    if (msg) {
+      msg.className = 'pop-result-msg correct show';
+      msg.innerHTML = '&#10003; Correct! ' + bigger + ' is larger &mdash; ' + fmtPop(Math.max(popA, popB)) + ' vs ' + fmtPop(Math.min(popA, popB));
+    }
+    correctCount++;
+  } else {
+    popStreak = 0;
+    if (msg) {
+      msg.className = 'pop-result-msg wrong show';
+      msg.innerHTML = '&#10007; ' + bigger + ' is actually larger &mdash; ' + fmtPop(Math.max(popA, popB)) + ' vs ' + fmtPop(Math.min(popA, popB));
+    }
+    wrongCount++;
+  }
+
+  document.getElementById('q-correct').textContent = correctCount;
+  document.getElementById('q-wrong').textContent = wrongCount;
+  var streakEl = document.getElementById('pop-streak-val');
+  if (streakEl) streakEl.textContent = popStreak;
+  updateProgressBar();
+
+  var c = quizQueue[currentQ];
+  answerHistory.push({ country: c, correct: correct, given: choice });
+  showCountryInfo(popCountryB);
+  document.getElementById('next-bar').style.display = 'flex';
+}
+
 // ═══════════════════════════════════════════════════════
 // EMBEDDED TOPOJSON DATA (no CDN required)
 // ═══════════════════════════════════════════════════════
@@ -3237,6 +3657,7 @@ function wcGetAllCountryNames() {
 
 // ── WC state ──
 let wcTimerMins = 10;
+let wcTimerMode = 'countdown'; // 'countdown' or 'stopwatch'
 let wcTimerSecs = 0;
 let wcTimerInterval = null;
 let wcTotalSecs = 600;
@@ -3284,7 +3705,7 @@ function wcStartGame() {
   wcAllNames = wcGetAllCountryNames();
   wcFoundSet = new Set();
   wcGameActive = true;
-  wcTotalSecs = wcTimerMins * 60;
+  wcTotalSecs = wcTimerMode === 'stopwatch' ? 99999 : wcTimerMins * 60;
   wcRemainingMs = wcTotalSecs * 1000;
   wcStartTime = Date.now();
 
@@ -3299,8 +3720,11 @@ function wcStartGame() {
   document.getElementById('wc-found-count').textContent = '0';
   document.getElementById('wc-remaining-count').textContent = wcAllNames.length;
   document.getElementById('wc-score-pct').textContent = '0%';
-  document.getElementById('wc-timer-display').textContent = wcFmtTime(wcTotalSecs);
-  document.getElementById('wc-timer-bar').style.width = '100%';
+  document.getElementById('wc-timer-display').textContent = wcTimerMode === 'stopwatch' ? '0:00' : wcFmtTime(wcTotalSecs);
+  document.getElementById('wc-timer-bar').style.width = wcTimerMode === 'stopwatch' ? '0%' : '100%';
+  // Update HUD label for stopwatch
+  const wcTimerLabel = document.querySelector('#wc-game .wc-hud-timer .wc-hud-label');
+  if (wcTimerLabel) wcTimerLabel.textContent = wcTimerMode === 'stopwatch' ? 'Time' : 'Time Left';
   document.getElementById('wc-timer-bar').style.background = 'linear-gradient(90deg, var(--accent2), var(--accent))';
   document.getElementById('wc-found-ticker').innerHTML = '';
 
@@ -3308,6 +3732,8 @@ function wcStartGame() {
   const inp = document.getElementById('wc-input');
   inp.value = '';
   inp.className = 'wc-type-input';
+  const wcGUBtn = document.getElementById('wc-give-up-btn');
+  if (wcGUBtn) wcGUBtn.textContent = wcTimerMode === 'stopwatch' ? 'Finish ✓' : 'Give Up';
   setTimeout(() => inp.focus(), 100);
 
   // Build/reset map
@@ -3576,6 +4002,13 @@ function wcFoundCountry(name, inp) {
 
 function wcTickTimer() {
   const elapsed = Date.now() - wcStartTime;
+  if (wcTimerMode === 'stopwatch') {
+    document.getElementById('wc-timer-display').textContent = wcFmtTime(Math.floor(elapsed / 1000));
+    const pct = Math.min(100, (elapsed / (30 * 60 * 1000)) * 100);
+    document.getElementById('wc-timer-bar').style.width = pct + '%';
+    document.getElementById('wc-timer-display').className = 'wc-hud-val';
+    return;
+  }
   const remaining = Math.max(0, wcTotalSecs * 1000 - elapsed);
   const secs = Math.ceil(remaining / 1000);
 
@@ -3599,7 +4032,7 @@ function wcTickTimer() {
 
 function wcGiveUp() {
   if (!wcGameActive) return;
-  if (!confirm('End the challenge now?')) return;
+  if (!confirm(wcTimerMode === 'stopwatch' ? 'Stop the stopwatch and see results?' : 'End the World Challenge now?')) return;
   wcEndGame(false);
 }
 
@@ -3608,7 +4041,9 @@ function wcEndGame(won) {
   clearInterval(wcTimerInterval);
 
   const elapsed = Date.now() - wcStartTime;
-  const timeUsedSecs = Math.min(Math.round(elapsed / 1000), wcTotalSecs);
+  const timeUsedSecs = wcTimerMode === 'stopwatch'
+    ? Math.round(elapsed / 1000)
+    : Math.min(Math.round(elapsed / 1000), wcTotalSecs);
   const found = wcFoundSet.size;
   const total = wcAllNames.length;
   const pct = Math.round(found / total * 100);
@@ -3671,7 +4106,7 @@ function wcSaveScore(found, pct, timeSecs, timerMins) {
   try { scores = JSON.parse(localStorage.getItem('wc_scores') || '[]'); } catch(e) {}
   const best = scores.length > 0 ? Math.max(...scores.map(s => s.found)) : 0;
   const isNew = found > best;
-  scores.unshift({ found, pct, timeSecs, timerMins, date: new Date().toLocaleDateString() });
+  scores.unshift({ found, pct, timeSecs, timerMins, mode: wcTimerMode, date: new Date().toLocaleDateString() });
   scores = scores.slice(0, 20); // Keep top 20
   try { localStorage.setItem('wc_scores', JSON.stringify(scores)); } catch(e) {}
   return { isNew, best };
@@ -3697,9 +4132,19 @@ function wcRenderLeaderboard(elId) {
       <span class="wc-lb-rank ${rankClasses[i] || ''}">#${i+1}</span>
       <span class="wc-lb-name">${s.found} / 195 countries</span>
       <span class="wc-lb-score">${s.pct}%</span>
-      <span class="wc-lb-time">${wcFmtTime(s.timeSecs)} · ${s.timerMins}min · ${s.date}</span>
+      <span class="wc-lb-time">${s.mode === "stopwatch" ? "⏳" : "⏱"} ${wcFmtTime(s.timeSecs)}${s.mode !== "stopwatch" ? " · " + s.timerMins + "min" : ""} · ${s.date}</span>
     </div>
   `).join('');
+}
+
+function wcSetMode(mode, btn) {
+  wcTimerMode = mode;
+  document.querySelectorAll('#wc-setup .wc-preset-btn[id^="wc-mode"]').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('wc-countdown-opts').style.display = mode === 'countdown' ? 'block' : 'none';
+  document.getElementById('wc-stopwatch-opts').style.display = mode === 'stopwatch' ? 'block' : 'none';
+  const label = document.getElementById('wc-selected-time');
+  label.textContent = mode === 'stopwatch' ? 'Stopwatch (count up)' : wcFmtTime(wcTimerMins * 60) + ' countdown';
 }
 
 function wcBackToSetup() {
@@ -3808,6 +4253,7 @@ EU_COUNTRIES.forEach(c => { EU_NAME_TO_CANONICAL[c.toLowerCase()] = c; });
 
 // Europe game state
 let euTimerMins = 5;
+let euTimerMode = 'countdown';
 let euTimerInterval = null;
 let euTotalSecs = 300;
 let euStartTime = 0;
@@ -3841,7 +4287,7 @@ function euSetCustom() {
 function euStartGame() {
   euFoundSet = new Set();
   euGameActive = true;
-  euTotalSecs = euTimerMins * 60;
+  euTotalSecs = euTimerMode === 'stopwatch' ? 99999 : euTimerMins * 60;
   euStartTime = Date.now();
 
   document.getElementById('eu-setup').style.display = 'none';
@@ -3853,14 +4299,18 @@ function euStartGame() {
   document.getElementById('eu-found-count').textContent = '0';
   document.getElementById('eu-remaining-count').textContent = EU_TOTAL;
   document.getElementById('eu-score-pct').textContent = '0%';
-  document.getElementById('eu-timer-display').textContent = wcFmtTime(euTotalSecs);
-  document.getElementById('eu-timer-bar').style.width = '100%';
+  document.getElementById('eu-timer-display').textContent = euTimerMode === 'stopwatch' ? '0:00' : wcFmtTime(euTotalSecs);
+  document.getElementById('eu-timer-bar').style.width = euTimerMode === 'stopwatch' ? '0%' : '100%';
   document.getElementById('eu-timer-bar').style.background = 'linear-gradient(90deg,#7c5cbf,#a78bfa)';
+  const euTimerLabel = document.querySelector('#eu-game .wc-hud-timer .wc-hud-label');
+  if (euTimerLabel) euTimerLabel.textContent = euTimerMode === 'stopwatch' ? 'Time' : 'Time Left';
   document.getElementById('eu-found-ticker').innerHTML = '';
 
   const inp = document.getElementById('eu-input');
   inp.value = '';
   inp.className = 'wc-type-input';
+  const euGUBtn = document.getElementById('eu-give-up-btn');
+  if (euGUBtn) euGUBtn.textContent = euTimerMode === 'stopwatch' ? 'Finish ✓' : 'Give Up';
   setTimeout(() => inp.focus(), 100);
 
   euBuildMap();
@@ -3939,6 +4389,13 @@ Object.entries(EU_ISO_NUM).forEach(([num, name]) => {
 
 function euTickTimer() {
   const elapsed = Date.now() - euStartTime;
+  if (euTimerMode === 'stopwatch') {
+    document.getElementById('eu-timer-display').textContent = wcFmtTime(Math.floor(elapsed / 1000));
+    const pct = Math.min(100, (elapsed / (30 * 60 * 1000)) * 100);
+    document.getElementById('eu-timer-bar').style.width = pct + '%';
+    document.getElementById('eu-timer-display').className = 'wc-hud-val';
+    return;
+  }
   const remaining = Math.max(0, euTotalSecs * 1000 - elapsed);
   const secs = Math.ceil(remaining / 1000);
   document.getElementById('eu-timer-display').textContent = wcFmtTime(secs);
@@ -3957,7 +4414,7 @@ function euTickTimer() {
 
 function euGiveUp() {
   if (!euGameActive) return;
-  if (!confirm('End the Europe Challenge now?')) return;
+  if (!confirm(euTimerMode === 'stopwatch' ? 'Stop the stopwatch and see results?' : 'End the Europe Challenge now?')) return;
   euEndGame(false);
 }
 
@@ -3966,7 +4423,9 @@ function euEndGame(won) {
   clearInterval(euTimerInterval);
 
   const elapsed = Date.now() - euStartTime;
-  const timeUsedSecs = Math.min(Math.round(elapsed / 1000), euTotalSecs);
+  const timeUsedSecs = euTimerMode === 'stopwatch'
+    ? Math.round(elapsed / 1000)
+    : Math.min(Math.round(elapsed / 1000), euTotalSecs);
   const found = euFoundSet.size;
   const pct = Math.round(found / EU_TOTAL * 100);
 
@@ -4013,7 +4472,7 @@ function euSaveScore(found, pct, timeSecs, timerMins) {
   try { scores = JSON.parse(localStorage.getItem('eu_scores') || '[]'); } catch(e) {}
   const best = scores.length > 0 ? Math.max(...scores.map(s => s.found)) : 0;
   const isNew = found > best;
-  scores.unshift({ found, pct, timeSecs, timerMins, date: new Date().toLocaleDateString() });
+  scores.unshift({ found, pct, timeSecs, timerMins, mode: wcTimerMode, date: new Date().toLocaleDateString() });
   scores = scores.slice(0, 20);
   try { localStorage.setItem('eu_scores', JSON.stringify(scores)); } catch(e) {}
   return { isNew, best };
@@ -4035,9 +4494,19 @@ function euRenderLeaderboard(elId) {
       <span class="wc-lb-rank ${rankClasses[i] || ''}">#${i+1}</span>
       <span class="wc-lb-name">${s.found} / ${EU_TOTAL} countries</span>
       <span class="wc-lb-score">${s.pct}%</span>
-      <span class="wc-lb-time">${wcFmtTime(s.timeSecs)} · ${s.timerMins}min · ${s.date}</span>
+      <span class="wc-lb-time">${s.mode === "stopwatch" ? "⏳" : "⏱"} ${wcFmtTime(s.timeSecs)}${s.mode !== "stopwatch" ? " · " + s.timerMins + "min" : ""} · ${s.date}</span>
     </div>
   `).join('');
+}
+
+function euSetMode(mode, btn) {
+  euTimerMode = mode;
+  document.querySelectorAll('#eu-setup .wc-preset-btn[id^="eu-mode"]').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('eu-countdown-opts').style.display = mode === 'countdown' ? 'block' : 'none';
+  document.getElementById('eu-stopwatch-opts').style.display = mode === 'stopwatch' ? 'block' : 'none';
+  const label = document.getElementById('eu-selected-time');
+  label.textContent = mode === 'stopwatch' ? 'Stopwatch (count up)' : wcFmtTime(euTimerMins * 60) + ' countdown';
 }
 
 function euBackToSetup() {
@@ -4290,6 +4759,7 @@ const USA_FIPS_TO_STATE = {
 
 // USA game state
 let usaTimerMins = 5;
+let usaTimerMode = 'countdown';
 let usaTimerInterval = null;
 let usaTotalSecs = 300;
 let usaStartTime = 0;
@@ -4322,7 +4792,7 @@ function usaSetCustom() {
 function usaStartGame() {
   usaFoundSet = new Set();
   usaGameActive = true;
-  usaTotalSecs = usaTimerMins * 60;
+  usaTotalSecs = usaTimerMode === 'stopwatch' ? 99999 : usaTimerMins * 60;
   usaStartTime = Date.now();
 
   document.getElementById('usa-setup').style.display = 'none';
@@ -4334,14 +4804,18 @@ function usaStartGame() {
   document.getElementById('usa-found-count').textContent = '0';
   document.getElementById('usa-remaining-count').textContent = '50';
   document.getElementById('usa-score-pct').textContent = '0%';
-  document.getElementById('usa-timer-display').textContent = wcFmtTime(usaTotalSecs);
-  document.getElementById('usa-timer-bar').style.width = '100%';
+  document.getElementById('usa-timer-display').textContent = usaTimerMode === 'stopwatch' ? '0:00' : wcFmtTime(usaTotalSecs);
+  document.getElementById('usa-timer-bar').style.width = usaTimerMode === 'stopwatch' ? '0%' : '100%';
   document.getElementById('usa-timer-bar').style.background = 'linear-gradient(90deg, var(--accent2), var(--accent))';
+  const usaTimerLabel = document.querySelector('#usa-game .wc-hud-timer .wc-hud-label');
+  if (usaTimerLabel) usaTimerLabel.textContent = usaTimerMode === 'stopwatch' ? 'Time' : 'Time Left';
   document.getElementById('usa-found-ticker').innerHTML = '';
 
   const inp = document.getElementById('usa-input');
   inp.value = '';
   inp.className = 'wc-type-input';
+  const usaGUBtn = document.getElementById('usa-give-up-btn');
+  if (usaGUBtn) usaGUBtn.textContent = usaTimerMode === 'stopwatch' ? 'Finish ✓' : 'Give Up';
   setTimeout(() => inp.focus(), 100);
 
   usaBuildMap();
@@ -4406,6 +4880,13 @@ function usaHighlightState(name, cls) {
 
 function usaTickTimer() {
   const elapsed = Date.now() - usaStartTime;
+  if (usaTimerMode === 'stopwatch') {
+    document.getElementById('usa-timer-display').textContent = wcFmtTime(Math.floor(elapsed / 1000));
+    const pct = Math.min(100, (elapsed / (30 * 60 * 1000)) * 100);
+    document.getElementById('usa-timer-bar').style.width = pct + '%';
+    document.getElementById('usa-timer-display').className = 'wc-hud-val';
+    return;
+  }
   const remaining = Math.max(0, usaTotalSecs * 1000 - elapsed);
   const secs = Math.ceil(remaining / 1000);
   document.getElementById('usa-timer-display').textContent = wcFmtTime(secs);
@@ -4424,7 +4905,7 @@ function usaTickTimer() {
 
 function usaGiveUp() {
   if (!usaGameActive) return;
-  if (!confirm('End the USA Challenge now?')) return;
+  if (!confirm(usaTimerMode === 'stopwatch' ? 'Stop the stopwatch and see results?' : 'End the USA Challenge now?')) return;
   usaEndGame(false);
 }
 
@@ -4433,7 +4914,9 @@ function usaEndGame(won) {
   clearInterval(usaTimerInterval);
 
   const elapsed = Date.now() - usaStartTime;
-  const timeUsedSecs = Math.min(Math.round(elapsed / 1000), usaTotalSecs);
+  const timeUsedSecs = usaTimerMode === 'stopwatch'
+    ? Math.round(elapsed / 1000)
+    : Math.min(Math.round(elapsed / 1000), usaTotalSecs);
   const found = usaFoundSet.size;
   const pct = Math.round(found / 50 * 100);
 
@@ -4480,7 +4963,7 @@ function usaSaveScore(found, pct, timeSecs, timerMins) {
   try { scores = JSON.parse(localStorage.getItem('usa_scores') || '[]'); } catch(e) {}
   const best = scores.length > 0 ? Math.max(...scores.map(s => s.found)) : 0;
   const isNew = found > best;
-  scores.unshift({ found, pct, timeSecs, timerMins, date: new Date().toLocaleDateString() });
+  scores.unshift({ found, pct, timeSecs, timerMins, mode: wcTimerMode, date: new Date().toLocaleDateString() });
   scores = scores.slice(0, 20);
   try { localStorage.setItem('usa_scores', JSON.stringify(scores)); } catch(e) {}
   return { isNew, best };
@@ -4502,10 +4985,22 @@ function usaRenderLeaderboard(elId) {
       <span class="wc-lb-rank ${rankClasses[i] || ''}">#${i+1}</span>
       <span class="wc-lb-name">${s.found} / 50 states</span>
       <span class="wc-lb-score">${s.pct}%</span>
-      <span class="wc-lb-time">${wcFmtTime(s.timeSecs)} · ${s.timerMins}min · ${s.date}</span>
+      <span class="wc-lb-time">${s.mode === "stopwatch" ? "⏳" : "⏱"} ${wcFmtTime(s.timeSecs)}${s.mode !== "stopwatch" ? " · " + s.timerMins + "min" : ""} · ${s.date}</span>
     </div>
   `).join('');
 }
+
+function usaSetMode(mode, btn) {
+  usaTimerMode = mode;
+  document.querySelectorAll('#usa-setup .wc-preset-btn[id^="usa-mode"]').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('usa-countdown-opts').style.display = mode === 'countdown' ? 'block' : 'none';
+  document.getElementById('usa-stopwatch-opts').style.display = mode === 'stopwatch' ? 'block' : 'none';
+  const label = document.getElementById('usa-selected-time');
+  label.textContent = mode === 'stopwatch' ? 'Stopwatch (count up)' : usaFmtDisplay() + ' countdown';
+}
+
+function usaFmtDisplay() { return wcFmtTime(usaTimerMins * 60); }
 
 function usaBackToSetup() {
   usaGameActive = false;
