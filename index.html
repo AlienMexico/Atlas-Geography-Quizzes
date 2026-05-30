@@ -1044,6 +1044,215 @@
     white-space: nowrap;
   }
 
+
+  /* ── WORLD CHALLENGE HERO ── */
+  .challenge-hero {
+    position: relative;
+    border-radius: 18px;
+    overflow: hidden;
+    cursor: pointer;
+    margin-bottom: 16px;
+    border: 1.5px solid rgba(232,197,71,0.5);
+    transition: border-color 0.2s, transform 0.2s;
+    background: linear-gradient(135deg, #0f1a2e 0%, #111e30 60%, #0a1520 100%);
+  }
+  .challenge-hero:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .challenge-hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at 10% 50%, rgba(232,197,71,0.13) 0%, transparent 55%),
+      radial-gradient(ellipse at 90% 20%, rgba(79,195,161,0.10) 0%, transparent 50%),
+      url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23e8c547' fill-opacity='0.025'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    pointer-events: none;
+  }
+  .challenge-hero-content {
+    position: relative;
+    padding: 32px 36px;
+  }
+  .challenge-hero-badge {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: rgba(232,197,71,0.12);
+    border: 1px solid rgba(232,197,71,0.3);
+    border-radius: 20px;
+    padding: 4px 12px;
+    margin-bottom: 14px;
+  }
+  .challenge-hero-title {
+    font-family: var(--serif);
+    font-size: clamp(26px, 4vw, 38px);
+    font-weight: 900;
+    color: var(--text);
+    margin: 0 0 10px;
+    line-height: 1.15;
+  }
+  .challenge-hero-desc {
+    font-family: var(--sans);
+    font-size: 15px;
+    color: var(--text-dim);
+    margin: 0 0 16px;
+    max-width: 560px;
+    line-height: 1.6;
+  }
+  .challenge-hero-stats {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 20px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text-faint);
+    flex-wrap: wrap;
+  }
+  .challenge-hero-stat { color: var(--text-dim); }
+  .challenge-hero-stat-sep { color: var(--text-faint); }
+  .challenge-hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, rgba(232,197,71,0.18), rgba(232,197,71,0.08));
+    border: 1.5px solid rgba(232,197,71,0.5);
+    color: var(--accent);
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 11px 24px;
+    border-radius: 10px;
+    transition: all 0.2s;
+  }
+  .challenge-hero:hover .challenge-hero-cta {
+    background: linear-gradient(135deg, rgba(232,197,71,0.28), rgba(232,197,71,0.14));
+    border-color: var(--accent);
+  }
+
+  /* ── CHALLENGE MINI ROW ── */
+  .challenge-mini-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+  .challenge-mini {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 18px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.18s;
+  }
+  .challenge-mini:hover { border-color: rgba(255,255,255,0.2); background: var(--surface2); transform: translateY(-1px); }
+  .challenge-mini-icon { font-size: 28px; flex-shrink: 0; }
+  .challenge-mini-title { font-family: var(--sans); font-size: 14px; font-weight: 600; color: var(--text); }
+  .challenge-mini-sub { font-family: var(--mono); font-size: 10px; color: var(--text-faint); margin-top: 2px; letter-spacing: 0.05em; }
+  .challenge-mini-arrow { margin-left: auto; color: var(--text-faint); font-family: var(--mono); font-size: 14px; flex-shrink: 0; }
+
+  /* ── SECTION LABEL ── */
+  .section-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--text-faint);
+    margin-bottom: 14px;
+    padding-left: 2px;
+  }
+
+  /* ── SHARE BUTTON ── */
+  .btn-share {
+    background: linear-gradient(135deg, rgba(120,80,220,0.15), rgba(79,195,161,0.10));
+    border: 1px solid rgba(120,80,220,0.4);
+    color: #b39dfa;
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    padding: 12px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-share:hover { background: rgba(120,80,220,0.25); border-color: rgba(120,80,220,0.7); }
+
+  /* ── SHARE MODAL ── */
+  .share-modal-overlay {
+    position: fixed; inset: 0; z-index: 1000;
+    background: rgba(0,0,0,0.7);
+    display: flex; align-items: center; justify-content: center;
+    padding: 20px;
+    animation: fadeIn 0.15s ease;
+  }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  .share-modal {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 28px;
+    width: 100%;
+    max-width: 480px;
+    position: relative;
+    animation: slideUp 0.2s ease;
+  }
+  @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+  .share-modal-close {
+    position: absolute; top: 16px; right: 16px;
+    background: var(--surface2); border: 1px solid var(--border);
+    color: var(--text-dim); width: 32px; height: 32px; border-radius: 8px;
+    cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center;
+    transition: all 0.15s;
+  }
+  .share-modal-close:hover { color: var(--text); }
+  .share-modal-title {
+    font-family: var(--serif); font-size: 20px; font-weight: 700;
+    color: var(--text); margin-bottom: 6px;
+  }
+  .share-modal-sub {
+    font-family: var(--mono); font-size: 11px; color: var(--text-faint);
+    text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 20px;
+  }
+  .share-preview-wrap {
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 12px; overflow: hidden; margin-bottom: 18px;
+  }
+  .share-preview-wrap canvas { display: block; width: 100%; height: auto; }
+  .share-actions {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px;
+  }
+  .share-btn {
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    padding: 12px 16px; border-radius: 10px; cursor: pointer;
+    font-family: var(--mono); font-size: 12px; font-weight: 600;
+    letter-spacing: 0.04em; border: 1px solid transparent; transition: all 0.18s;
+  }
+  .share-btn-copy { background: rgba(232,197,71,0.12); border-color: rgba(232,197,71,0.35); color: var(--accent); }
+  .share-btn-copy:hover { background: rgba(232,197,71,0.22); }
+  .share-btn-download { background: rgba(79,195,161,0.12); border-color: rgba(79,195,161,0.35); color: var(--accent2); }
+  .share-btn-download:hover { background: rgba(79,195,161,0.22); }
+  .share-btn-x { background: rgba(0,0,0,0.3); border-color: rgba(255,255,255,0.15); color: #e0e0e0; }
+  .share-btn-x:hover { background: rgba(255,255,255,0.1); }
+  .share-btn-wa { background: rgba(37,211,102,0.12); border-color: rgba(37,211,102,0.35); color: #25d366; }
+  .share-btn-wa:hover { background: rgba(37,211,102,0.22); }
+  .share-btn-tg { background: rgba(0,136,204,0.12); border-color: rgba(0,136,204,0.35); color: #29b6f6; }
+  .share-btn-tg:hover { background: rgba(0,136,204,0.22); }
+  .share-btn-fb { background: rgba(24,119,242,0.12); border-color: rgba(24,119,242,0.35); color: #4c9cf0; }
+  .share-btn-fb:hover { background: rgba(24,119,242,0.22); }
+  .share-copied-msg { text-align:center; font-family:var(--mono); font-size:11px; color:var(--accent2); height:16px; }
+
+  @media (max-width: 600px) {
+    .challenge-mini-row { grid-template-columns: 1fr; }
+    .challenge-hero-content { padding: 22px 20px; }
+    .share-actions { grid-template-columns: 1fr; }
+  }
+
   /* ── RESPONSIVE ── */
   @media (max-width: 640px) {
     header { padding: 16px 20px; }
@@ -1878,6 +2087,44 @@
       <div class="daily-badge" id="daily-badge">Play Today →</div>
     </div>
 
+    <!-- ═══ CHALLENGE MODES HERO ═══ -->
+    <div class="challenge-hero" onclick="showView('worldchallenge')">
+      <div class="challenge-hero-bg"></div>
+      <div class="challenge-hero-content">
+        <div class="challenge-hero-badge">🏆 FLAGSHIP MODE</div>
+        <h2 class="challenge-hero-title">🌍 World Challenge</h2>
+        <p class="challenge-hero-desc">Name every country on Earth against the clock — watch the map light up green in real time. The ultimate geography test.</p>
+        <div class="challenge-hero-stats" id="wc-hero-stats">
+          <span class="challenge-hero-stat"><span id="wc-hero-best">—</span> best</span>
+          <span class="challenge-hero-stat-sep">·</span>
+          <span class="challenge-hero-stat">195 countries</span>
+          <span class="challenge-hero-stat-sep">·</span>
+          <span class="challenge-hero-stat">World map</span>
+        </div>
+        <div class="challenge-hero-cta">Play World Challenge →</div>
+      </div>
+    </div>
+
+    <div class="challenge-mini-row">
+      <div class="challenge-mini" onclick="showView('usachallenge')">
+        <span class="challenge-mini-icon">🇺🇸</span>
+        <div>
+          <div class="challenge-mini-title">USA Challenge</div>
+          <div class="challenge-mini-sub">50 states · map lights up</div>
+        </div>
+        <div class="challenge-mini-arrow">→</div>
+      </div>
+      <div class="challenge-mini" onclick="showView('europechallenge')">
+        <span class="challenge-mini-icon">🇪🇺</span>
+        <div>
+          <div class="challenge-mini-title">Europe Challenge</div>
+          <div class="challenge-mini-sub">44 countries · map lights up</div>
+        </div>
+        <div class="challenge-mini-arrow">→</div>
+      </div>
+    </div>
+
+    <div class="section-label">Quiz Modes</div>
     <div class="quiz-modes">
       <div class="mode-card" onclick="startQuiz('flags')">
         <span class="mode-icon">🏳️</span>
@@ -1921,24 +2168,7 @@
         <p>Two countries appear side by side — guess which has the larger population. How far can your streak go?</p>
         <span class="mode-tag tag-red">Higher / Lower</span>
       </div>
-      <div class="mode-card wc-home-card" onclick="showView('worldchallenge')" style="grid-column:1/-1;border-color:rgba(232,197,71,0.35);background:linear-gradient(135deg,rgba(232,197,71,0.07) 0%,rgba(79,195,161,0.05) 100%)">
-        <span class="mode-icon">🌍</span>
-        <h3 style="font-size:24px">World Challenge <span style="color:var(--accent);font-size:14px;font-family:var(--mono);font-weight:400;letter-spacing:0.06em;text-transform:uppercase;vertical-align:middle;margin-left:8px;">Flagship Mode</span></h3>
-        <p>Name every single country on Earth against the clock. Watch the world map light up green as you go. How many can you name before time runs out?</p>
-        <span class="mode-tag tag-yellow">All 195 Countries · World Map · Leaderboard</span>
-      </div>
-      <div class="mode-card wc-home-card" onclick="showView('usachallenge')" style="grid-column:1/-1;border-color:rgba(79,195,161,0.35);background:linear-gradient(135deg,rgba(79,195,161,0.07) 0%,rgba(232,197,71,0.05) 100%)">
-        <span class="mode-icon">🇺🇸</span>
-        <h3 style="font-size:24px">USA Challenge <span style="color:var(--accent2);font-size:14px;font-family:var(--mono);font-weight:400;letter-spacing:0.06em;text-transform:uppercase;vertical-align:middle;margin-left:8px;">50 States</span></h3>
-        <p>Name all 50 US states against the clock. Watch the map light up green as each state appears. How many can you name?</p>
-        <span class="mode-tag tag-green">All 50 States · USA Map · Leaderboard</span>
-      </div>
-      <div class="mode-card wc-home-card" onclick="showView('europechallenge')" style="grid-column:1/-1;border-color:rgba(120,100,220,0.35);background:linear-gradient(135deg,rgba(120,100,220,0.07) 0%,rgba(79,195,161,0.05) 100%)">
-        <span class="mode-icon">🇪🇺</span>
-        <h3 style="font-size:24px">Europe Challenge <span style="color:#a78bfa;font-size:14px;font-family:var(--mono);font-weight:400;letter-spacing:0.06em;text-transform:uppercase;vertical-align:middle;margin-left:8px;">44 Countries</span></h3>
-        <p>Name all the countries of Europe against the clock. Watch the map light up green as you go. How many can you name?</p>
-        <span class="mode-tag tag-purple">All 44 Countries · Europe Map · Leaderboard</span>
-      </div>
+
     </div>
   </div>
 
@@ -2058,9 +2288,10 @@
             <span class="stat-value" id="r-total">0</span>
           </div>
         </div>
-        <div style="display:flex;gap:12px;justify-content:center;margin-bottom:24px">
+        <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:24px">
           <button class="btn-primary" onclick="beginQuiz()">Play Again</button>
           <button class="btn-ghost" onclick="showView('home')">← Home</button>
+          <button class="btn-share" onclick="openShareModal('quiz')">📤 Share</button>
         </div>
         <div class="result-lifetime-note" id="result-lifetime-note"></div>
         <div class="answer-history">
@@ -2197,6 +2428,7 @@
         <button class="btn-primary" onclick="wcStartGame()">Play Again</button>
         <button class="btn-ghost" onclick="wcBackToSetup()">← Change Timer</button>
         <button class="btn-ghost" onclick="showView('home')">Home</button>
+        <button class="btn-share" onclick="openShareModal('world')">📤 Share</button>
       </div>
 
       <!-- Leaderboard -->
@@ -2338,6 +2570,7 @@
         <button class="btn-primary" onclick="usaStartGame()" style="background:var(--accent2)">Play Again</button>
         <button class="btn-ghost" onclick="usaBackToSetup()">← Change Timer</button>
         <button class="btn-ghost" onclick="showView('home')">Home</button>
+        <button class="btn-share" onclick="openShareModal('usa')">📤 Share</button>
       </div>
 
       <div class="wc-leaderboard-preview" style="max-width:600px;margin:0 auto 32px">
@@ -2475,6 +2708,7 @@
         <button class="btn-primary" onclick="euStartGame()" style="background:#7c5cbf">Play Again</button>
         <button class="btn-ghost" onclick="euBackToSetup()">← Change Timer</button>
         <button class="btn-ghost" onclick="showView('home')">Home</button>
+        <button class="btn-share" onclick="openShareModal('europe')">📤 Share</button>
       </div>
 
       <div class="wc-leaderboard-preview" style="max-width:600px;margin:0 auto 32px">
@@ -2929,7 +3163,7 @@ function showView(id) {
     b.classList.toggle('active', ids[i] === id);
   });
   if (id === 'encyclopedia') renderEncyclopedia();
-  if (id === 'home') { renderHomeStats(); initDailyCard(); }
+  if (id === 'home') { renderHomeStats(); initDailyCard(); updateChallengeHeroBest(); }
   if (id === 'quiz') {
     // Always return to setup when navigating to Quiz via tab
     // so a mid-game or results state never shows as blank
@@ -4032,7 +4266,7 @@ function wcTickTimer() {
 
 function wcGiveUp() {
   if (!wcGameActive) return;
-  if (!confirm(wcTimerMode === 'stopwatch' ? 'Stop the stopwatch and see results?' : 'End the World Challenge now?')) return;
+  if (wcTimerMode !== 'stopwatch' && !confirm('End the World Challenge now?')) return;
   wcEndGame(false);
 }
 
@@ -4414,7 +4648,7 @@ function euTickTimer() {
 
 function euGiveUp() {
   if (!euGameActive) return;
-  if (!confirm(euTimerMode === 'stopwatch' ? 'Stop the stopwatch and see results?' : 'End the Europe Challenge now?')) return;
+  if (euTimerMode !== 'stopwatch' && !confirm('End the Europe Challenge now?')) return;
   euEndGame(false);
 }
 
@@ -4905,7 +5139,7 @@ function usaTickTimer() {
 
 function usaGiveUp() {
   if (!usaGameActive) return;
-  if (!confirm(usaTimerMode === 'stopwatch' ? 'Stop the stopwatch and see results?' : 'End the USA Challenge now?')) return;
+  if (usaTimerMode !== 'stopwatch' && !confirm('End the USA Challenge now?')) return;
   usaEndGame(false);
 }
 
@@ -5110,6 +5344,255 @@ function usaBuildMap() {
 
 
 // ═══════════════════════════════════════════════════════
+// SHARE STATS — Canvas image generation + social sharing
+// ═══════════════════════════════════════════════════════
+
+var shareCurrentType = 'quiz';
+var shareCanvasBlob = null;
+
+function openShareModal(type) {
+  shareCurrentType = type;
+  var modal = document.getElementById('share-modal');
+  modal.style.display = 'flex';
+  var sub = document.getElementById('share-modal-sub');
+  var labels = { quiz:'Quiz Result', world:'World Challenge', usa:'USA Challenge', europe:'Europe Challenge' };
+  sub.textContent = labels[type] || 'Result';
+  drawShareCanvas(type);
+}
+
+function closeShareModal(event) {
+  if (event && event.target !== document.getElementById('share-modal')) return;
+  document.getElementById('share-modal').style.display = 'none';
+  document.getElementById('share-copied-msg').textContent = '';
+}
+
+function drawShareCanvas(type) {
+  var canvas = document.getElementById('share-canvas');
+  var ctx = canvas.getContext('2d');
+  var W = 960, H = 504;
+  canvas.width = W; canvas.height = H;
+
+  ctx.fillStyle = '#0a0e1a';
+  ctx.fillRect(0, 0, W, H);
+
+  ctx.strokeStyle = 'rgba(255,255,255,0.025)';
+  ctx.lineWidth = 1;
+  for (var x = 0; x < W; x += 40) { ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,H); ctx.stroke(); }
+  for (var y = 0; y < H; y += 40) { ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W,y); ctx.stroke(); }
+
+  var g1 = ctx.createRadialGradient(160, H/2, 0, 160, H/2, 300);
+  g1.addColorStop(0, 'rgba(232,197,71,0.18)'); g1.addColorStop(1, 'transparent');
+  ctx.fillStyle = g1; ctx.fillRect(0,0,W,H);
+
+  var g2 = ctx.createRadialGradient(W-160, 80, 0, W-160, 80, 280);
+  g2.addColorStop(0, 'rgba(79,195,161,0.14)'); g2.addColorStop(1, 'transparent');
+  ctx.fillStyle = g2; ctx.fillRect(0,0,W,H);
+
+  ctx.fillStyle = 'rgba(255,255,255,0.35)';
+  ctx.font = 'bold 13px "IBM Plex Mono", monospace';
+  ctx.textAlign = 'left';
+  ctx.fillText('ATLAS QUIZ', 48, 46);
+
+  ctx.strokeStyle = 'rgba(232,197,71,0.4)';
+  ctx.lineWidth = 2;
+  ctx.beginPath(); ctx.moveTo(48, H-48); ctx.lineTo(48, 60); ctx.stroke();
+
+  var data = getShareData(type);
+
+  var bw = ctx.measureText(data.mode.toUpperCase()).width + 28;
+  ctx.fillStyle = 'rgba(232,197,71,0.12)';
+  roundRect(ctx, 68, 32, bw, 26, 6);
+  ctx.fillStyle = '#e8c547';
+  ctx.font = 'bold 11px "IBM Plex Mono", monospace';
+  ctx.fillText(data.mode.toUpperCase(), 82, 50);
+
+  ctx.fillStyle = '#e8c547';
+  ctx.font = 'bold 96px Georgia, serif';
+  ctx.textAlign = 'left';
+  ctx.fillText(data.score, 68, 200);
+
+  ctx.fillStyle = 'rgba(255,255,255,0.45)';
+  ctx.font = '15px "IBM Plex Mono", monospace';
+  ctx.fillText(data.scoreLabel, 68, 228);
+
+  var stats = data.stats;
+  var sy = 290;
+  stats.forEach(function(stat, i) {
+    var sx = 68 + i * 190;
+    ctx.fillStyle = 'rgba(255,255,255,0.3)';
+    ctx.font = '11px "IBM Plex Mono", monospace';
+    ctx.textAlign = 'left';
+    ctx.fillText(stat.label.toUpperCase(), sx, sy);
+    ctx.fillStyle = stat.color || '#e8e0d0';
+    ctx.font = 'bold 22px "IBM Plex Mono", monospace';
+    ctx.fillText(String(stat.value), sx, sy + 28);
+  });
+
+  ctx.fillStyle = 'rgba(255,255,255,0.2)';
+  ctx.font = '12px "IBM Plex Mono", monospace';
+  ctx.textAlign = 'right';
+  ctx.fillText('Can you beat this?  atlas-quiz', W - 48, H - 36);
+
+  if (data.pct !== undefined) {
+    var cx = W - 140, cy = H/2 + 10, r = 90;
+    ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI*2);
+    ctx.strokeStyle = 'rgba(255,255,255,0.07)';
+    ctx.lineWidth = 12; ctx.stroke();
+
+    var startA = -Math.PI/2;
+    var endA = startA + (Math.PI*2 * Math.min(data.pct/100, 1));
+    var rg = ctx.createLinearGradient(cx-r, cy, cx+r, cy);
+    rg.addColorStop(0, '#e8c547'); rg.addColorStop(1, '#4fc3a1');
+    ctx.beginPath(); ctx.arc(cx, cy, r, startA, endA);
+    ctx.strokeStyle = rg; ctx.lineWidth = 12; ctx.lineCap = 'round'; ctx.stroke();
+
+    ctx.fillStyle = 'rgba(232,197,71,0.92)';
+    ctx.font = 'bold 36px Georgia, serif';
+    ctx.textAlign = 'center';
+    ctx.fillText(Math.round(data.pct) + '%', cx, cy + 12);
+    ctx.fillStyle = 'rgba(255,255,255,0.3)';
+    ctx.font = '11px "IBM Plex Mono", monospace';
+    ctx.fillText('SCORE', cx, cy + 32);
+  }
+
+  ctx.textAlign = 'left';
+  canvas.toBlob(function(blob) { shareCanvasBlob = blob; }, 'image/png');
+}
+
+function getShareData(type) {
+  if (type === 'quiz') {
+    var correct = parseInt(document.getElementById('r-correct').textContent) || 0;
+    var total   = parseInt(document.getElementById('r-total').textContent)   || 0;
+    var pct = total > 0 ? Math.round(correct/total*100) : 0;
+    var modeTitle = document.getElementById('quiz-mode-title') ? document.getElementById('quiz-mode-title').textContent : 'Quiz';
+    return {
+      mode: modeTitle, score: correct+'/'+total, scoreLabel: 'questions correct', pct: pct,
+      stats: [
+        { label:'Correct', value:correct, color:'#4fc3a1' },
+        { label:'Wrong',   value:total-correct, color:'#e8694a' },
+        { label:'Accuracy',value:pct+'%', color:'#e8c547' }
+      ]
+    };
+  }
+  if (type === 'world') {
+    var found = parseInt(document.getElementById('wc-res-score').textContent) || 0;
+    var pct2  = Math.round(found/195*100);
+    var time  = document.getElementById('wc-res-time') ? document.getElementById('wc-res-time').textContent : '';
+    return {
+      mode:'World Challenge', score:found+'/195', scoreLabel:'countries named', pct:pct2,
+      stats: [
+        { label:'Found',  value:found,     color:'#4fc3a1' },
+        { label:'Missed', value:195-found, color:'#e8694a' },
+        { label:'Time',   value:time,      color:'#e8c547' }
+      ]
+    };
+  }
+  if (type === 'usa') {
+    var found3 = parseInt(document.getElementById('usa-res-score').textContent) || 0;
+    var pct3   = Math.round(found3/50*100);
+    var time3  = document.getElementById('usa-res-time') ? document.getElementById('usa-res-time').textContent : '';
+    return {
+      mode:'USA Challenge', score:found3+'/50', scoreLabel:'states named', pct:pct3,
+      stats: [
+        { label:'Found',  value:found3,   color:'#4fc3a1' },
+        { label:'Missed', value:50-found3, color:'#e8694a' },
+        { label:'Time',   value:time3,    color:'#e8c547' }
+      ]
+    };
+  }
+  if (type === 'europe') {
+    var found4 = parseInt(document.getElementById('eu-res-score').textContent) || 0;
+    var pct4   = Math.round(found4/44*100);
+    var time4  = document.getElementById('eu-res-time') ? document.getElementById('eu-res-time').textContent : '';
+    return {
+      mode:'Europe Challenge', score:found4+'/44', scoreLabel:'countries named', pct:pct4,
+      stats: [
+        { label:'Found',  value:found4,   color:'#4fc3a1' },
+        { label:'Missed', value:44-found4, color:'#e8694a' },
+        { label:'Time',   value:time4,    color:'#e8c547' }
+      ]
+    };
+  }
+  return { mode:'Atlas Quiz', score:'', scoreLabel:'', pct:0, stats:[] };
+}
+
+function roundRect(ctx, x, y, w, h, r) {
+  ctx.beginPath();
+  ctx.moveTo(x+r, y);
+  ctx.lineTo(x+w-r,y); ctx.quadraticCurveTo(x+w,y,x+w,y+r);
+  ctx.lineTo(x+w,y+h-r); ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);
+  ctx.lineTo(x+r,y+h); ctx.quadraticCurveTo(x,y+h,x,y+h-r);
+  ctx.lineTo(x,y+r); ctx.quadraticCurveTo(x,y,x+r,y);
+  ctx.closePath(); ctx.fill();
+}
+
+function getShareText(type) {
+  var data = getShareData(type);
+  return 'I scored ' + data.score + ' on Atlas Quiz ' + data.mode + '! Can you beat it? 🌍';
+}
+
+function shareAction(platform) {
+  var text = getShareText(shareCurrentType);
+  var enc  = encodeURIComponent(text);
+  var msg  = document.getElementById('share-copied-msg');
+
+  if (platform === 'copy') {
+    var canvas = document.getElementById('share-canvas');
+    if (canvas.toBlob && navigator.clipboard && navigator.clipboard.write) {
+      canvas.toBlob(function(blob) {
+        var item = new ClipboardItem({'image/png': blob});
+        navigator.clipboard.write([item]).then(function() {
+          msg.textContent = '✓ Image copied to clipboard!';
+          setTimeout(function() { msg.textContent = ''; }, 2500);
+        }).catch(function() {
+          navigator.clipboard.writeText(text);
+          msg.textContent = '✓ Text copied (image needs HTTPS)';
+          setTimeout(function() { msg.textContent = ''; }, 2500);
+        });
+      });
+    } else {
+      if (navigator.clipboard) navigator.clipboard.writeText(text).catch(function(){});
+      msg.textContent = '✓ Text copied to clipboard!';
+      setTimeout(function() { msg.textContent = ''; }, 2500);
+    }
+    return;
+  }
+
+  if (platform === 'download') {
+    var canvas2 = document.getElementById('share-canvas');
+    var link = document.createElement('a');
+    link.download = 'atlas-quiz-result.png';
+    link.href = canvas2.toDataURL('image/png');
+    link.click();
+    msg.textContent = '✓ Downloading…';
+    setTimeout(function() { msg.textContent = ''; }, 2000);
+    return;
+  }
+
+  var urls = {
+    x:        'https://x.com/intent/tweet?text=' + enc,
+    whatsapp: 'https://wa.me/?text=' + enc,
+    telegram: 'https://t.me/share/url?url=https%3A%2F%2Fatlas-quiz.app&text=' + enc,
+    facebook: 'https://www.facebook.com/sharer/sharer.php?quote=' + enc
+  };
+  if (urls[platform]) window.open(urls[platform], '_blank', 'width=600,height=500');
+}
+
+function updateChallengeHeroBest() {
+  var el = document.getElementById('wc-hero-best');
+  if (!el) return;
+  try {
+    var scores = JSON.parse(localStorage.getItem('wc_scores') || '[]');
+    if (scores.length > 0) {
+      var best = Math.max.apply(null, scores.map(function(s) { return s.found || 0; }));
+      el.textContent = best + '/195';
+    } else {
+      el.textContent = 'No plays yet';
+    }
+  } catch(e) { el.textContent = '—'; }
+}
+
+// ═══════════════════════════════════════════════════════
 // SCORE EXPORT / IMPORT
 // ═══════════════════════════════════════════════════════
 
@@ -5229,5 +5712,26 @@ if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
 
 
 </script>
+
+  <!-- SHARE MODAL -->
+  <div class="share-modal-overlay" id="share-modal" style="display:none" onclick="closeShareModal(event)">
+    <div class="share-modal">
+      <button class="share-modal-close" onclick="closeShareModal(null)">✕</button>
+      <div class="share-modal-title">Share Your Result</div>
+      <div class="share-modal-sub" id="share-modal-sub">World Challenge</div>
+      <div class="share-preview-wrap">
+        <canvas id="share-canvas" width="960" height="504"></canvas>
+      </div>
+      <div class="share-actions">
+        <button class="share-btn share-btn-copy" onclick="shareAction('copy')">📋 Copy Image</button>
+        <button class="share-btn share-btn-download" onclick="shareAction('download')">⬇ Download PNG</button>
+        <button class="share-btn share-btn-x" onclick="shareAction('x')">𝕏 Post on X</button>
+        <button class="share-btn share-btn-wa" onclick="shareAction('whatsapp')">💬 WhatsApp</button>
+        <button class="share-btn share-btn-tg" onclick="shareAction('telegram')">✈ Telegram</button>
+        <button class="share-btn share-btn-fb" onclick="shareAction('facebook')">f Facebook</button>
+      </div>
+      <div class="share-copied-msg" id="share-copied-msg"></div>
+    </div>
+  </div>
 </body>
 </html>
