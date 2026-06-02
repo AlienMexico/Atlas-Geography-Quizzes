@@ -220,6 +220,27 @@
     padding: 40px 40px;
   }
 
+  #view-history, #view-learn {
+    margin: -40px -40px;
+    padding: 0;
+  }
+
+  #view-history > div,
+  #view-learn > #learn-home,
+  #view-learn > #learn-card-area,
+  #view-learn > #learn-queue-area,
+  #view-learn > #learn-bookmarks-area {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 32px 40px;
+  }
+
+  #view-history > div {
+    padding: 0;
+    max-width: none;
+    margin: 0;
+  }
+
   .view { display: none; }
   .view.active { display: block; }
 
@@ -2027,6 +2048,173 @@
     margin-bottom: 16px;
     display: block;
   }
+
+  /* ── LEARN MODE ── */
+  .learn-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 32px;
+    max-width: 680px;
+    margin: 0 auto;
+    transition: box-shadow 0.3s;
+  }
+  .learn-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.3); }
+  .learn-card-divider {
+    height: 1px;
+    background: var(--border);
+    margin: 24px -32px;
+  }
+  .learn-fact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  .learn-fact-item {
+    background: var(--surface2);
+    border-radius: 8px;
+    padding: 12px;
+  }
+  .learn-rate-btn {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 13px;
+    padding: 14px 22px;
+    border-radius: 10px;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.18s;
+    line-height: 1.4;
+    min-width: 90px;
+  }
+  .learn-rate-btn:hover { border-color: rgba(255,255,255,0.3); transform: translateY(-2px); }
+  .rate-again:hover { border-color: var(--wrong); background: rgba(232,105,74,0.1); }
+  .rate-hard:hover  { border-color: var(--accent); background: rgba(232,197,71,0.08); }
+  .rate-good:hover  { border-color: var(--accent2); background: rgba(79,195,161,0.1); }
+  .rate-easy:hover  { border-color: #7c5cbf; background: rgba(124,92,191,0.1); }
+
+  .learn-country-tile {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+  }
+  .learn-country-tile:hover { border-color: rgba(255,255,255,0.2); transform: translateY(-1px); }
+  .learn-country-tile .tile-status {
+    font-family: var(--mono);
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-left: auto;
+    white-space: nowrap;
+  }
+  .tile-new { background: rgba(232,197,71,0.15); color: var(--accent); }
+  .tile-learning { background: rgba(79,195,161,0.15); color: var(--accent2); }
+  .tile-mastered { background: rgba(79,195,161,0.15); color: var(--correct); }
+  .tile-due { background: rgba(232,105,74,0.15); color: var(--wrong); }
+
+  /* ── HISTORY MODE ── */
+  .hist-sidebar-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: background 0.15s;
+    margin: 2px 0;
+  }
+  .hist-sidebar-item:hover { background: var(--surface); }
+  .hist-sidebar-item.active { background: var(--surface); border-left: 2px solid var(--accent); }
+
+  .hist-profile-tabs {
+    display: flex;
+    gap: 0;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 24px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .hist-profile-tabs::-webkit-scrollbar { display: none; }
+  .hist-tab-btn {
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: var(--text-dim);
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 12px 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .hist-tab-btn:hover { color: var(--text); }
+  .hist-tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+  .hist-stat-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+    margin-bottom: 12px;
+  }
+  .hist-bar-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-bottom: 4px;
+  }
+  .hist-bar-wrap {
+    height: 10px;
+    background: var(--surface2);
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 4px;
+  }
+  .hist-bar-fill {
+    height: 100%;
+    border-radius: 5px;
+    transition: width 0.8s ease;
+  }
+  .hist-compare-col {
+    flex: 1;
+    min-width: 220px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+  }
+  .hist-compare-metric {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .hist-compare-metric:last-child { border-bottom: none; }
+  .hist-compare-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-faint);
+    margin-bottom: 3px;
+  }
+  .hist-compare-val {
+    font-size: 15px;
+    font-weight: 500;
+  }
 </style>
 </head>
 <body>
@@ -2038,12 +2226,14 @@
 </header>
 
 <nav class="nav-tabs">
-  <button class="tab-btn active" onclick="showView('home')">Home</button>
-  <button class="tab-btn" onclick="showView('quiz')">Quiz</button>
-  <button class="tab-btn" onclick="showView('worldchallenge')" id="tab-wc">🌍 World Challenge</button>
-  <button class="tab-btn" onclick="showView('usachallenge')" id="tab-usa">🇺🇸 USA Challenge</button>
-  <button class="tab-btn" onclick="showView('europechallenge')" id="tab-eu">🇪🇺 Europe Challenge</button>
-  <button class="tab-btn" onclick="showView('encyclopedia')">Encyclopedia</button>
+  <button class="tab-btn active" data-view="home" onclick="showView('home')">Home</button>
+  <button class="tab-btn" data-view="quiz" onclick="showView('quiz')">Quiz</button>
+  <button class="tab-btn" data-view="worldchallenge" id="tab-wc" onclick="showView('worldchallenge')">🌍 World Challenge</button>
+  <button class="tab-btn" data-view="usachallenge" id="tab-usa" onclick="showView('usachallenge')">🇺🇸 USA Challenge</button>
+  <button class="tab-btn" data-view="europechallenge" id="tab-eu" onclick="showView('europechallenge')">🇪🇺 Europe Challenge</button>
+  <button class="tab-btn" data-view="encyclopedia" onclick="showView('encyclopedia')">Encyclopedia</button>
+  <button class="tab-btn" data-view="learn" onclick="showView('learn')">✨ Learn</button>
+  <button class="tab-btn" data-view="history" onclick="showView('history')">📊 History &amp; Stats</button>
 </nav>
 
 <main>
@@ -2180,6 +2370,16 @@
         <p id="quiz-mode-desc" style="margin:0;">Configure and begin.</p>
       </div>
       <div class="mode-select-row">
+        <label>Mode:</label>
+        <select class="quiz-setting" id="quiz-mode-select" onchange="onQuizModeChange(this.value)">
+          <option value="flags">🏳️ Flag Recognition</option>
+          <option value="capitals">🏛️ Capital Cities</option>
+          <option value="regions">🌍 Continents &amp; Regions</option>
+          <option value="typing">⌨️ Type the Country</option>
+          <option value="currency">💰 Currency Quiz</option>
+          <option value="language">🗣️ Language Quiz</option>
+          <option value="population">👥 Population: Higher or Lower?</option>
+        </select>
         <label>Region:</label>
         <select class="quiz-setting" id="quiz-region">
           <option value="all">All Regions</option>
@@ -2748,6 +2948,142 @@
     </div>
     <div class="countries-grid" id="countries-grid"></div>
   </div>
+  <!-- LEARN MODE -->
+  <div class="view" id="view-learn">
+    <div id="learn-home">
+      <div class="home-hero" style="text-align:left;padding:0 0 32px">
+        <h1 style="font-family:var(--serif);font-size:clamp(28px,4vw,48px);font-weight:900;line-height:1.1">✨ Learn Mode</h1>
+        <p style="color:var(--text-dim);font-size:15px;margin-top:12px;max-width:560px;line-height:1.6">Spaced repetition study. Cards you struggle with come back sooner. Cards you know well are scheduled further away. Build lasting memory.</p>
+      </div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:32px">
+        <button class="btn-primary" onclick="learnStartRandom()">📚 Start Session</button>
+        <button class="btn-ghost" onclick="learnStartRandom(true)">🎲 Random Country</button>
+        <button class="btn-ghost" onclick="learnShowQueue()">📋 Study Queue</button>
+        <button class="btn-ghost" onclick="learnShowBookmarks()">⭐ Bookmarks</button>
+      </div>
+      <div id="learn-stats-bar" style="display:flex;gap:24px;padding:20px;background:var(--surface);border:1px solid var(--border);border-radius:12px;margin-bottom:28px;flex-wrap:wrap">
+        <div><div style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-faint);margin-bottom:4px">Due Today</div><div id="learn-due-count" style="font-family:var(--mono);font-size:24px;font-weight:500;color:var(--accent)">0</div></div>
+        <div><div style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-faint);margin-bottom:4px">Studied</div><div id="learn-studied-count" style="font-family:var(--mono);font-size:24px;font-weight:500">0</div></div>
+        <div><div style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-faint);margin-bottom:4px">Bookmarks</div><div id="learn-bookmarks-count" style="font-family:var(--mono);font-size:24px;font-weight:500;color:var(--accent2)">0</div></div>
+        <div><div style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-faint);margin-bottom:4px">Mastered</div><div id="learn-mastered-count" style="font-family:var(--mono);font-size:24px;font-weight:500;color:var(--correct)">0</div></div>
+      </div>
+      <div style="margin-bottom:16px">
+        <div style="font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-faint);margin-bottom:12px">Browse by Region</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap" id="learn-region-btns">
+          <button class="region-btn active" onclick="learnFilterRegion('all',this)">All</button>
+          <button class="region-btn" onclick="learnFilterRegion('Africa',this)">Africa</button>
+          <button class="region-btn" onclick="learnFilterRegion('Americas',this)">Americas</button>
+          <button class="region-btn" onclick="learnFilterRegion('Asia',this)">Asia</button>
+          <button class="region-btn" onclick="learnFilterRegion('Europe',this)">Europe</button>
+          <button class="region-btn" onclick="learnFilterRegion('Oceania',this)">Oceania</button>
+        </div>
+      </div>
+      <div id="learn-country-list" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-top:16px"></div>
+    </div>
+
+    <!-- Card study area -->
+    <div id="learn-card-area" style="display:none">
+      <div style="display:flex;align-items:center;gap:16px;margin-bottom:24px">
+        <button class="btn-ghost" onclick="learnExit()" style="font-size:12px;padding:10px 16px">← Exit</button>
+        <div style="font-family:var(--mono);font-size:12px;color:var(--text-dim)">Session: <span id="learn-session-progress">0/0</span></div>
+      </div>
+      <div id="learn-card" class="learn-card">
+        <div class="learn-card-front" id="learn-card-front">
+          <div id="learn-card-flag" style="font-size:72px;text-align:center;margin-bottom:16px"></div>
+          <div id="learn-card-hint" style="font-family:var(--mono);font-size:13px;color:var(--text-dim);text-align:center;margin-bottom:20px"></div>
+          <div id="learn-card-level" style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-faint);text-align:center"></div>
+        </div>
+        <div class="learn-card-divider"></div>
+        <div class="learn-card-body" id="learn-card-body" style="display:none">
+          <!-- Revealed content: basic facts -->
+          <div id="learn-reveal-basic"></div>
+          <!-- Progressive: intermediate facts -->
+          <div id="learn-reveal-inter" style="display:none"></div>
+          <!-- Progressive: advanced -->
+          <div id="learn-reveal-adv" style="display:none"></div>
+          <div style="display:flex;gap:10px;margin-top:20px;flex-wrap:wrap" id="learn-depth-btns">
+            <button class="btn-ghost" style="font-size:12px" id="learn-more-btn" onclick="learnShowMore()">More Facts →</button>
+          </div>
+        </div>
+        <div id="learn-card-reveal-btn-wrap" style="text-align:center;padding:20px 0">
+          <button class="btn-primary" onclick="learnRevealCard()" style="font-size:15px;padding:16px 40px">Reveal →</button>
+        </div>
+      </div>
+      <div id="learn-rating-bar" style="display:none;margin-top:20px">
+        <div style="font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-faint);margin-bottom:12px;text-align:center">How well did you know this?</div>
+        <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+          <button class="learn-rate-btn rate-again" onclick="learnRate(0)">😕 Again<br><span style="font-size:10px;opacity:0.7">&lt;1 min</span></button>
+          <button class="learn-rate-btn rate-hard" onclick="learnRate(1)">😐 Hard<br><span style="font-size:10px;opacity:0.7">~10 min</span></button>
+          <button class="learn-rate-btn rate-good" onclick="learnRate(2)">🙂 Good<br><span style="font-size:10px;opacity:0.7">~1 day</span></button>
+          <button class="learn-rate-btn rate-easy" onclick="learnRate(3)">😄 Easy<br><span style="font-size:10px;opacity:0.7">~4 days</span></button>
+        </div>
+        <div style="display:flex;gap:10px;justify-content:center;margin-top:16px">
+          <button class="btn-ghost" style="font-size:12px" id="learn-bookmark-btn" onclick="learnToggleBookmark()">⭐ Bookmark</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Queue view -->
+    <div id="learn-queue-area" style="display:none">
+      <div style="display:flex;align-items:center;gap:16px;margin-bottom:24px">
+        <button class="btn-ghost" onclick="learnExitToHome()" style="font-size:12px;padding:10px 16px">← Back</button>
+        <h2 style="font-family:var(--serif);font-size:24px">Study Queue</h2>
+      </div>
+      <div id="learn-queue-list"></div>
+    </div>
+
+    <!-- Bookmarks view -->
+    <div id="learn-bookmarks-area" style="display:none">
+      <div style="display:flex;align-items:center;gap:16px;margin-bottom:24px">
+        <button class="btn-ghost" onclick="learnExitToHome()" style="font-size:12px;padding:10px 16px">← Back</button>
+        <h2 style="font-family:var(--serif);font-size:24px">⭐ Bookmarks</h2>
+      </div>
+      <div id="learn-bookmarks-list"></div>
+    </div>
+  </div>
+
+  <!-- HISTORY & STATS MODE -->
+  <div class="view" id="view-history">
+    <div style="display:flex;gap:0;min-height:600px;height:calc(100vh - 130px)">
+      <!-- Sidebar -->
+      <div id="hist-sidebar" style="width:260px;flex-shrink:0;border-right:1px solid var(--border);overflow-y:auto;padding:16px 0">
+        <div style="padding:0 12px 12px">
+          <div style="font-family:var(--serif);font-size:18px;font-weight:700;margin-bottom:8px">📊 History &amp; Stats</div>
+          <input type="text" id="hist-search" class="enc-input" placeholder="Search..." oninput="histFilter()" style="margin-bottom:8px;font-size:13px;padding:8px 12px">
+          <div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:8px" id="hist-region-filter">
+            <button class="region-btn active" style="font-size:10px;padding:4px 8px" onclick="histFilterRegion('all',this)">All</button>
+            <button class="region-btn" style="font-size:10px;padding:4px 8px" onclick="histFilterRegion('Africa',this)">Africa</button>
+            <button class="region-btn" style="font-size:10px;padding:4px 8px" onclick="histFilterRegion('Americas',this)">Americas</button>
+            <button class="region-btn" style="font-size:10px;padding:4px 8px" onclick="histFilterRegion('Asia',this)">Asia</button>
+            <button class="region-btn" style="font-size:10px;padding:4px 8px" onclick="histFilterRegion('Europe',this)">Europe</button>
+            <button class="region-btn" style="font-size:10px;padding:4px 8px" onclick="histFilterRegion('Oceania',this)">Oceania</button>
+          </div>
+          <button class="btn-ghost" style="width:100%;font-size:11px;padding:8px" onclick="histRandomDeepDive()">🎲 Random Deep Dive</button>
+        </div>
+        <div id="hist-sidebar-list" style="padding:0 4px"></div>
+      </div>
+      <!-- Main content -->
+      <div id="hist-main" style="flex:1;overflow-y:auto;padding:24px 32px">
+        <div id="hist-welcome" style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:400px;text-align:center;color:var(--text-dim)">
+          <div style="font-size:64px;margin-bottom:16px">🌍</div>
+          <div style="font-family:var(--serif);font-size:28px;font-weight:700;color:var(--text);margin-bottom:8px">Deep Country Profiles</div>
+          <p style="max-width:400px;line-height:1.6">Select a country from the sidebar to explore its full profile — geography, statistics, and culture.</p>
+          <button class="btn-primary" style="margin-top:20px" onclick="histRandomDeepDive()">🎲 Random Deep Dive</button>
+          <div style="margin-top:32px;width:100%;max-width:700px">
+            <div style="font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-faint);margin-bottom:12px">Compare Countries Side-by-Side</div>
+            <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center">
+              <select id="hist-cmp-a" class="quiz-setting" style="min-width:160px;font-size:13px"><option value="">Country A…</option></select>
+              <select id="hist-cmp-b" class="quiz-setting" style="min-width:160px;font-size:13px"><option value="">Country B…</option></select>
+              <select id="hist-cmp-c" class="quiz-setting" style="min-width:160px;font-size:13px"><option value="">Country C (opt.)…</option></select>
+              <button class="btn-primary" onclick="histCompare()" style="padding:12px 24px;font-size:13px">Compare →</button>
+            </div>
+          </div>
+        </div>
+        <div id="hist-profile" style="display:none"></div>
+        <div id="hist-compare-view" style="display:none"></div>
+      </div>
+    </div>
+  </div>
 
 </main>
 
@@ -3158,15 +3494,21 @@ let dailyModes = [];
 function showView(id) {
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
   document.getElementById('view-' + id).classList.add('active');
-  document.querySelectorAll('.tab-btn').forEach((b, i) => {
-    const ids = ['home', 'quiz', 'worldchallenge', 'usachallenge', 'europechallenge', 'encyclopedia'];
-    b.classList.toggle('active', ids[i] === id);
+  document.querySelectorAll('.tab-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.view === id);
   });
   if (id === 'encyclopedia') renderEncyclopedia();
   if (id === 'home') { renderHomeStats(); initDailyCard(); updateChallengeHeroBest(); }
   if (id === 'quiz') {
+    // Ensure a valid mode is set when navigating via tab without prior mode selection
+    if (!currentMode || currentMode === '') {
+      currentMode = 'flags';
+    }
+    // Sync the mode dropdown to match currentMode
+    const mSel = document.getElementById('quiz-mode-select');
+    if (mSel) mSel.value = currentMode;
+    syncQuizSetupTitle(currentMode);
     // Always return to setup when navigating to Quiz via tab
-    // so a mid-game or results state never shows as blank
     document.getElementById('quiz-setup').style.display = 'block';
     document.getElementById('quiz-game').style.display = 'none';
     document.getElementById('quiz-results').style.display = 'none';
@@ -3180,6 +3522,38 @@ function showView(id) {
   if (id === 'europechallenge') {
     euBackToSetup();
   }
+  if (id === 'learn') {
+    initLearnMode();
+  }
+  if (id === 'history') {
+    initHistoryMode();
+  }
+}
+
+function onQuizModeChange(mode) {
+  currentMode = mode;
+  syncQuizSetupTitle(mode);
+}
+
+function syncQuizSetupTitle(mode) {
+  const titles = {
+    flags: '🏳️ Flag Recognition', capitals: '🏛️ Capital Cities',
+    regions: '🌍 Continents & Regions', typing: '⌨️ Type the Country',
+    currency: '💰 Currency Quiz', language: '🗣️ Language Quiz', population: '👥 Population: Higher or Lower?'
+  };
+  const descs = {
+    flags: 'See a flag — name the country.',
+    capitals: 'Name the capital city of each country.',
+    regions: 'Which continent or region does this country belong to?',
+    typing: 'See the flag and capital — type the country name.',
+    currency: 'What currency does this country use?',
+    language: 'What is the official language of this country?',
+    population: 'Which country has the larger population?'
+  };
+  const t = document.getElementById('quiz-mode-title');
+  const d = document.getElementById('quiz-mode-desc');
+  if (t) t.textContent = titles[mode] || 'Quiz';
+  if (d) d.textContent = descs[mode] || 'Configure and begin.';
 }
 
 // ═══════════════════════════════════════════════════════
@@ -3189,9 +3563,9 @@ function startQuiz(mode) {
   currentMode = mode;
   isDailyChallenge = false;
   const titles = {
-    flags: 'Flag Recognition', capitals: 'Capital Cities',
-    regions: 'Continents & Regions', typing: 'Type the Country',
-    currency: 'Currency Quiz', language: 'Language Quiz', population: 'Population: Higher or Lower?'
+    flags: '🏳️ Flag Recognition', capitals: '🏛️ Capital Cities',
+    regions: '🌍 Continents & Regions', typing: '⌨️ Type the Country',
+    currency: '💰 Currency Quiz', language: '🗣️ Language Quiz', population: '👥 Population: Higher or Lower?'
   };
   const descs = {
     flags: 'See a flag — name the country.',
@@ -3204,6 +3578,9 @@ function startQuiz(mode) {
   };
   document.getElementById('quiz-mode-title').textContent = titles[mode];
   document.getElementById('quiz-mode-desc').textContent = descs[mode];
+  // Sync dropdown
+  const mSel = document.getElementById('quiz-mode-select');
+  if (mSel) mSel.value = mode;
   showView('quiz');
   document.getElementById('quiz-setup').style.display = 'block';
   document.getElementById('quiz-game').style.display = 'none';
@@ -5677,6 +6054,561 @@ function importScores(input) {
   reader.readAsText(file);
 }
 
+
+// ═══════════════════════════════════════════════════════
+// LEARN MODE — Spaced Repetition (SuperMemo-style SM-2)
+// ═══════════════════════════════════════════════════════
+
+function learnLoadData() {
+  try { return JSON.parse(localStorage.getItem('atlas_learn') || '{}'); } catch(e) { return {}; }
+}
+function learnSaveData(d) {
+  try { localStorage.setItem('atlas_learn', JSON.stringify(d)); } catch(e) {}
+}
+function learnLoadBookmarks() {
+  try { return JSON.parse(localStorage.getItem('atlas_bookmarks') || '[]'); } catch(e) { return []; }
+}
+function learnSaveBookmarks(b) {
+  try { localStorage.setItem('atlas_bookmarks', JSON.stringify(b)); } catch(e) {}
+}
+
+// SM-2 simplified: returns {interval, easeFactor, repetitions, nextDue}
+function learnSM2(card, quality) {
+  // quality: 0=Again,1=Hard,2=Good,3=Easy
+  let ef = card.ef || 2.5;
+  let rep = card.rep || 0;
+  let interval = card.interval || 1;
+
+  if (quality === 0) { rep = 0; interval = 1; }
+  else if (quality === 1) { rep = Math.max(0, rep - 1); interval = Math.max(1, Math.round(interval * 0.8)); }
+  else {
+    if (rep === 0) interval = 1;
+    else if (rep === 1) interval = 4;
+    else interval = Math.round(interval * ef);
+    rep++;
+    if (quality === 3) interval = Math.round(interval * 1.3);
+  }
+  ef = Math.max(1.3, ef + 0.1 - (3 - quality) * (0.08 + (3 - quality) * 0.02));
+  const now = Date.now();
+  let delayMs;
+  if (quality === 0) delayMs = 60 * 1000;
+  else if (quality === 1) delayMs = 10 * 60 * 1000;
+  else delayMs = interval * 24 * 60 * 60 * 1000;
+  return { ef, rep, interval, nextDue: now + delayMs };
+}
+
+let learnSession = [];
+let learnSessionIdx = 0;
+let learnCurrentCountry = null;
+let learnDepthLevel = 0;
+let learnCurrentRegion = 'all';
+
+function initLearnMode() {
+  const data = learnLoadData();
+  const bookmarks = learnLoadBookmarks();
+  const now = Date.now();
+  const due = COUNTRIES.filter(c => {
+    const card = data[c.name];
+    if (!card) return false;
+    return card.nextDue <= now;
+  });
+  document.getElementById('learn-due-count').textContent = due.length;
+  document.getElementById('learn-studied-count').textContent = Object.keys(data).length;
+  document.getElementById('learn-bookmarks-count').textContent = bookmarks.length;
+  const mastered = Object.values(data).filter(c => c.rep >= 5).length;
+  document.getElementById('learn-mastered-count').textContent = mastered;
+  learnRenderCountryList();
+  learnShowHomePanel();
+}
+
+function learnShowHomePanel() {
+  document.getElementById('learn-home').style.display = 'block';
+  document.getElementById('learn-card-area').style.display = 'none';
+  document.getElementById('learn-queue-area').style.display = 'none';
+  document.getElementById('learn-bookmarks-area').style.display = 'none';
+}
+
+function learnFilterRegion(region, btn) {
+  learnCurrentRegion = region;
+  document.querySelectorAll('#learn-region-btns .region-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  learnRenderCountryList();
+}
+
+function learnRenderCountryList() {
+  const data = learnLoadData();
+  const now = Date.now();
+  const filtered = learnCurrentRegion === 'all' ? COUNTRIES : COUNTRIES.filter(c => c.region === learnCurrentRegion);
+  const list = document.getElementById('learn-country-list');
+  list.innerHTML = filtered.map(c => {
+    const card = data[c.name];
+    let status = 'New', statusCls = 'tile-new';
+    if (card) {
+      if (card.rep >= 5) { status = 'Mastered'; statusCls = 'tile-mastered'; }
+      else if (card.nextDue <= now) { status = 'Due'; statusCls = 'tile-due'; }
+      else { status = 'Learning'; statusCls = 'tile-learning'; }
+    }
+    return `<div class="learn-country-tile" onclick="learnStudySingle('${escStr(c.name)}')">
+      ${flagImg(c.flag, 18)} <span>${c.name}</span>
+      <span class="tile-status ${statusCls}">${status}</span>
+    </div>`;
+  }).join('');
+}
+
+function learnStartRandom(single) {
+  const data = learnLoadData();
+  const now = Date.now();
+  // Priority: due cards first, then new cards
+  const due = COUNTRIES.filter(c => data[c.name] && data[c.name].nextDue <= now);
+  const newCards = COUNTRIES.filter(c => !data[c.name]);
+  shuffle(due); shuffle(newCards);
+  const session = [...due, ...newCards].slice(0, single ? 1 : 20);
+  if (session.length === 0) {
+    alert('No cards due! Come back later or browse the country list below.');
+    return;
+  }
+  learnSession = session;
+  learnSessionIdx = 0;
+  learnShowCard();
+}
+
+function learnStudySingle(name) {
+  const c = COUNTRIES.find(c => c.name === name);
+  if (!c) return;
+  learnSession = [c];
+  learnSessionIdx = 0;
+  learnShowCard();
+}
+
+function learnShowCard() {
+  if (learnSessionIdx >= learnSession.length) {
+    learnExit();
+    return;
+  }
+  learnCurrentCountry = learnSession[learnSessionIdx];
+  learnDepthLevel = 0;
+  const c = learnCurrentCountry;
+
+  document.getElementById('learn-home').style.display = 'none';
+  document.getElementById('learn-card-area').style.display = 'block';
+  document.getElementById('learn-queue-area').style.display = 'none';
+  document.getElementById('learn-bookmarks-area').style.display = 'none';
+
+  document.getElementById('learn-session-progress').textContent = `${learnSessionIdx + 1}/${learnSession.length}`;
+  document.getElementById('learn-card-flag').innerHTML = flagImg(c.flag, 64, 'flag-img-xl');
+  document.getElementById('learn-card-hint').textContent = `${c.region} · ${c.subregion}`;
+
+  const data = learnLoadData();
+  const card = data[c.name];
+  const levelText = card ? (card.rep >= 5 ? '⭐ Mastered' : `Session ${card.rep}`) : '🆕 New';
+  document.getElementById('learn-card-level').textContent = levelText;
+
+  document.getElementById('learn-card-body').style.display = 'none';
+  document.getElementById('learn-card-reveal-btn-wrap').style.display = 'block';
+  document.getElementById('learn-rating-bar').style.display = 'none';
+
+  // Update bookmark btn
+  const bookmarks = learnLoadBookmarks();
+  const bBtn = document.getElementById('learn-bookmark-btn');
+  bBtn.textContent = bookmarks.includes(c.name) ? '⭐ Bookmarked' : '☆ Bookmark';
+}
+
+function learnRevealCard() {
+  const c = learnCurrentCountry;
+  document.getElementById('learn-card-reveal-btn-wrap').style.display = 'none';
+  document.getElementById('learn-card-body').style.display = 'block';
+
+  // Basic facts
+  document.getElementById('learn-reveal-basic').innerHTML = `
+    <div class="learn-fact-grid">
+      <div class="learn-fact-item"><div class="fact-label">Country</div><div class="fact-value" style="font-family:var(--serif);font-size:20px;font-weight:700">${c.name}</div></div>
+      <div class="learn-fact-item"><div class="fact-label">Capital</div><div class="fact-value">${c.capital}</div></div>
+      <div class="learn-fact-item"><div class="fact-label">Region</div><div class="fact-value">${c.region}</div></div>
+      <div class="learn-fact-item"><div class="fact-label">Population</div><div class="fact-value">${c.pop}</div></div>
+    </div>`;
+  document.getElementById('learn-reveal-inter').innerHTML = `
+    <div class="learn-fact-grid">
+      <div class="learn-fact-item"><div class="fact-label">Area</div><div class="fact-value">${c.area}</div></div>
+      <div class="learn-fact-item"><div class="fact-label">Currency</div><div class="fact-value">${c.currency}</div></div>
+      <div class="learn-fact-item"><div class="fact-label">Language(s)</div><div class="fact-value">${c.language}</div></div>
+      <div class="learn-fact-item"><div class="fact-label">Subregion</div><div class="fact-value">${c.subregion}</div></div>
+    </div>`;
+  document.getElementById('learn-reveal-adv').innerHTML = `
+    <div style="background:var(--surface2);border-radius:10px;padding:16px;margin-top:4px;font-size:14px;line-height:1.7;color:var(--text-dim)">${c.desc || 'No additional description available.'}</div>`;
+
+  document.getElementById('learn-reveal-inter').style.display = 'none';
+  document.getElementById('learn-reveal-adv').style.display = 'none';
+  document.getElementById('learn-more-btn').textContent = 'More Facts →';
+  document.getElementById('learn-more-btn').style.display = 'inline-flex';
+  document.getElementById('learn-rating-bar').style.display = 'block';
+  learnDepthLevel = 1;
+}
+
+function learnShowMore() {
+  if (learnDepthLevel === 1) {
+    document.getElementById('learn-reveal-inter').style.display = 'block';
+    learnDepthLevel = 2;
+    document.getElementById('learn-more-btn').textContent = 'Full Profile →';
+  } else if (learnDepthLevel === 2) {
+    document.getElementById('learn-reveal-adv').style.display = 'block';
+    learnDepthLevel = 3;
+    document.getElementById('learn-more-btn').style.display = 'none';
+  }
+}
+
+function learnRate(quality) {
+  const c = learnCurrentCountry;
+  const data = learnLoadData();
+  const existing = data[c.name] || {};
+  data[c.name] = learnSM2(existing, quality);
+  learnSaveData(data);
+  learnSessionIdx++;
+  learnShowCard();
+  initLearnMode(); // refresh stats
+}
+
+function learnToggleBookmark() {
+  const c = learnCurrentCountry;
+  if (!c) return;
+  const bookmarks = learnLoadBookmarks();
+  const idx = bookmarks.indexOf(c.name);
+  if (idx >= 0) bookmarks.splice(idx, 1);
+  else bookmarks.push(c.name);
+  learnSaveBookmarks(bookmarks);
+  const bBtn = document.getElementById('learn-bookmark-btn');
+  bBtn.textContent = bookmarks.includes(c.name) ? '⭐ Bookmarked' : '☆ Bookmark';
+  initLearnMode();
+}
+
+function learnExit() {
+  learnShowHomePanel();
+  initLearnMode();
+}
+
+function learnExitToHome() {
+  learnShowHomePanel();
+}
+
+function learnShowQueue() {
+  const data = learnLoadData();
+  const now = Date.now();
+  document.getElementById('learn-home').style.display = 'none';
+  document.getElementById('learn-card-area').style.display = 'none';
+  document.getElementById('learn-queue-area').style.display = 'block';
+  document.getElementById('learn-bookmarks-area').style.display = 'none';
+
+  const items = COUNTRIES
+    .filter(c => data[c.name])
+    .map(c => ({ country: c, card: data[c.name] }))
+    .sort((a, b) => a.card.nextDue - b.card.nextDue);
+
+  const list = document.getElementById('learn-queue-list');
+  if (items.length === 0) {
+    list.innerHTML = '<div style="font-family:var(--mono);font-size:13px;color:var(--text-faint);padding:20px 0">No cards studied yet. Start a session to build your queue.</div>';
+    return;
+  }
+  list.innerHTML = items.map(({country: c, card}) => {
+    const isDue = card.nextDue <= now;
+    const nextStr = isDue ? '<span style="color:var(--wrong)">Due now</span>' : `in ${Math.round((card.nextDue - now) / 86400000)} days`;
+    return `<div style="display:flex;align-items:center;gap:12px;padding:12px;border-bottom:1px solid var(--border)">
+      ${flagImg(c.flag, 20)}
+      <span style="flex:1;font-size:14px">${c.name}</span>
+      <span style="font-family:var(--mono);font-size:11px;color:var(--text-dim)">Rep ${card.rep} · ${nextStr}</span>
+      <button class="btn-ghost" style="font-size:11px;padding:6px 12px" onclick="learnStudySingle('${escStr(c.name)}')">Study</button>
+    </div>`;
+  }).join('');
+}
+
+function learnShowBookmarks() {
+  const bookmarks = learnLoadBookmarks();
+  document.getElementById('learn-home').style.display = 'none';
+  document.getElementById('learn-card-area').style.display = 'none';
+  document.getElementById('learn-queue-area').style.display = 'none';
+  document.getElementById('learn-bookmarks-area').style.display = 'block';
+
+  const list = document.getElementById('learn-bookmarks-list');
+  if (bookmarks.length === 0) {
+    list.innerHTML = '<div style="font-family:var(--mono);font-size:13px;color:var(--text-faint);padding:20px 0">No bookmarks yet. Star countries during study sessions.</div>';
+    return;
+  }
+  list.innerHTML = bookmarks.map(name => {
+    const c = COUNTRIES.find(c => c.name === name);
+    if (!c) return '';
+    return `<div style="display:flex;align-items:center;gap:12px;padding:12px;border-bottom:1px solid var(--border)">
+      ${flagImg(c.flag, 20)}
+      <span style="flex:1;font-size:14px">${c.name}</span>
+      <span style="font-family:var(--mono);font-size:11px;color:var(--text-dim)">${c.region}</span>
+      <button class="btn-ghost" style="font-size:11px;padding:6px 12px" onclick="learnStudySingle('${escStr(c.name)}')">Study</button>
+    </div>`;
+  }).join('');
+}
+
+// ═══════════════════════════════════════════════════════
+// HISTORY & STATS MODE
+// ═══════════════════════════════════════════════════════
+let histCurrentRegion = 'all';
+let histCurrentCountry = null;
+let histCurrentTab = 'overview';
+
+function initHistoryMode() {
+  histRenderSidebar();
+  histPopulateCompareSelects();
+}
+
+function histFilter() {
+  histRenderSidebar();
+}
+
+function histFilterRegion(region, btn) {
+  histCurrentRegion = region;
+  document.querySelectorAll('#hist-region-filter .region-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  histRenderSidebar();
+}
+
+function histRenderSidebar() {
+  const search = (document.getElementById('hist-search')?.value || '').toLowerCase();
+  const filtered = COUNTRIES.filter(c => {
+    const regionOk = histCurrentRegion === 'all' || c.region === histCurrentRegion;
+    const searchOk = !search || c.name.toLowerCase().includes(search) || c.capital.toLowerCase().includes(search);
+    return regionOk && searchOk;
+  });
+  const list = document.getElementById('hist-sidebar-list');
+  list.innerHTML = filtered.map(c =>
+    `<div class="hist-sidebar-item${histCurrentCountry === c.name ? ' active' : ''}" onclick="histOpenCountry('${escStr(c.name)}')">
+      ${flagImg(c.flag, 18)} <span>${c.name}</span>
+    </div>`
+  ).join('');
+}
+
+function histPopulateCompareSelects() {
+  const opts = COUNTRIES.map(c => `<option value="${escStr(c.name)}">${c.flag} ${c.name}</option>`).join('');
+  ['hist-cmp-a','hist-cmp-b','hist-cmp-c'].forEach((id, i) => {
+    const el = document.getElementById(id);
+    if (el) el.innerHTML = `<option value="">Country ${String.fromCharCode(65+i)}…</option>` + opts;
+  });
+}
+
+function histRandomDeepDive() {
+  const c = COUNTRIES[Math.floor(Math.random() * COUNTRIES.length)];
+  histOpenCountry(c.name);
+}
+
+function histOpenCountry(name) {
+  histCurrentCountry = name;
+  histCurrentTab = 'overview';
+  const c = COUNTRIES.find(c => c.name === name);
+  if (!c) return;
+
+  document.getElementById('hist-welcome').style.display = 'none';
+  document.getElementById('hist-compare-view').style.display = 'none';
+  document.getElementById('hist-profile').style.display = 'block';
+  histRenderSidebar(); // refresh active state
+  histRenderProfile(c);
+}
+
+function histRenderProfile(c) {
+  const profile = document.getElementById('hist-profile');
+  profile.innerHTML = `
+    <div style="display:flex;align-items:center;gap:20px;margin-bottom:24px;flex-wrap:wrap">
+      ${flagImg(c.flag, 64, 'flag-img-xl')}
+      <div>
+        <h2 style="font-family:var(--serif);font-size:clamp(24px,4vw,38px);font-weight:900">${c.name}</h2>
+        <div style="font-family:var(--mono);font-size:12px;color:var(--text-dim);margin-top:4px">${c.subregion} · ${c.region}</div>
+      </div>
+      <button class="btn-ghost" style="margin-left:auto;font-size:12px" onclick="startQuiz('flags')">Quiz this region →</button>
+    </div>
+    <div class="hist-profile-tabs" id="hist-profile-tabs-bar">
+      <button class="hist-tab-btn active" onclick="histSetTab('overview',this)">Overview</button>
+      <button class="hist-tab-btn" onclick="histSetTab('statistics',this)">Statistics</button>
+      <button class="hist-tab-btn" onclick="histSetTab('geography',this)">Geography</button>
+      <button class="hist-tab-btn" onclick="histSetTab('culture',this)">Culture</button>
+      <button class="hist-tab-btn" onclick="histSetTab('history',this)">History</button>
+    </div>
+    <div id="hist-tab-content"></div>`;
+
+  histSetTabContent(c, 'overview');
+}
+
+function histSetTab(tab, btn) {
+  histCurrentTab = tab;
+  document.querySelectorAll('#hist-profile-tabs-bar .hist-tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const c = COUNTRIES.find(c => c.name === histCurrentCountry);
+  if (c) histSetTabContent(c, tab);
+}
+
+function histSetTabContent(c, tab) {
+  const el = document.getElementById('hist-tab-content');
+  if (tab === 'overview') {
+    el.innerHTML = `
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-bottom:24px">
+        ${histStatCard('Capital', c.capital, '🏛️')}
+        ${histStatCard('Population', c.pop, '👥')}
+        ${histStatCard('Area', c.area, '📐')}
+        ${histStatCard('Currency', c.currency, '💰')}
+        ${histStatCard('Language(s)', c.language, '🗣️')}
+        ${histStatCard('Region', c.region, '🌍')}
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px">
+        <div style="font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-faint);margin-bottom:10px">About</div>
+        <p style="font-size:15px;line-height:1.8;color:var(--text-dim)">${c.desc || 'No description available.'}</p>
+      </div>
+      <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">
+        <button class="btn-primary" onclick="learnStudySingle('${escStr(c.name)}');showView('learn')">✨ Study in Learn Mode</button>
+        <button class="btn-ghost" onclick="startQuiz('capitals')">🏛️ Quiz: Capitals</button>
+        <button class="btn-ghost" onclick="startQuiz('flags')">🏳️ Quiz: Flags</button>
+      </div>`;
+  } else if (tab === 'statistics') {
+    const popNum = parsePopulation(c.pop);
+    const areaNum = parseArea(c.area);
+    const maxPop = 1440000000; // China approx
+    const maxArea = 17098246;  // Russia
+    const popPct = popNum ? Math.max(2, Math.round(popNum / maxPop * 100)) : 0;
+    const areaPct = areaNum ? Math.max(2, Math.round(areaNum / maxArea * 100)) : 0;
+    el.innerHTML = `
+      <div class="hist-stat-block">
+        <div style="font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-faint);margin-bottom:16px">Population vs World's Largest (China ~1.44B)</div>
+        <div class="hist-bar-label">${c.name}: ${c.pop}</div>
+        <div class="hist-bar-wrap"><div class="hist-bar-fill" style="width:${popPct}%;background:linear-gradient(90deg,var(--accent2),var(--accent))"></div></div>
+        <div style="font-family:var(--mono);font-size:11px;color:var(--text-faint)">${popPct}% of China's population</div>
+      </div>
+      <div class="hist-stat-block">
+        <div style="font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-faint);margin-bottom:16px">Area vs World's Largest (Russia ~17.1M km²)</div>
+        <div class="hist-bar-label">${c.name}: ${c.area}</div>
+        <div class="hist-bar-wrap"><div class="hist-bar-fill" style="width:${areaPct}%;background:linear-gradient(90deg,var(--accent3),#e88a4a)"></div></div>
+        <div style="font-family:var(--mono);font-size:11px;color:var(--text-faint)">${areaPct}% of Russia's area</div>
+      </div>
+      <div class="hist-stat-block">
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px">
+          ${histStatCard('Population', c.pop, '👥')}
+          ${histStatCard('Area', c.area, '📐')}
+          ${histStatCard('Currency', c.currency, '💰')}
+          ${histStatCard('Language(s)', c.language, '🗣️')}
+        </div>
+      </div>`;
+  } else if (tab === 'geography') {
+    el.innerHTML = `
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-bottom:20px">
+        ${histStatCard('Region', c.region, '🌍')}
+        ${histStatCard('Subregion', c.subregion, '🗺️')}
+        ${histStatCard('Area', c.area, '📐')}
+        ${histStatCard('Capital', c.capital, '🏛️')}
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px">
+        <div style="font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-faint);margin-bottom:10px">Regional Context</div>
+        <p style="font-size:14px;line-height:1.7;color:var(--text-dim)">
+          ${c.name} is located in <strong style="color:var(--text)">${c.subregion}</strong>, part of the broader <strong style="color:var(--text)">${c.region}</strong> region.
+          It covers an area of <strong style="color:var(--text)">${c.area}</strong> with a population of approximately <strong style="color:var(--text)">${c.pop}</strong>.
+          The capital city is <strong style="color:var(--text)">${c.capital}</strong>.
+        </p>
+      </div>
+      <div style="margin-top:16px;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px">
+        <div style="font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-faint);margin-bottom:12px">Neighbours in ${c.subregion}</div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px">
+          ${COUNTRIES.filter(n => n.name !== c.name && n.subregion === c.subregion).slice(0,8).map(n =>
+            `<div onclick="histOpenCountry('${escStr(n.name)}')" style="cursor:pointer;display:inline-flex;align-items:center;gap:6px;padding:6px 12px;background:var(--surface2);border-radius:8px;font-size:13px;transition:all 0.15s" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'">${flagImg(n.flag,16)} ${n.name}</div>`
+          ).join('')}
+        </div>
+      </div>`;
+  } else if (tab === 'culture') {
+    el.innerHTML = `
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-bottom:20px">
+        ${histStatCard('Language(s)', c.language, '🗣️')}
+        ${histStatCard('Currency', c.currency, '💰')}
+        ${histStatCard('Flag', c.flag, '🏳️')}
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:16px">
+        <div style="font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-faint);margin-bottom:10px">Cultural Snapshot</div>
+        <p style="font-size:15px;line-height:1.8;color:var(--text-dim)">${c.desc || 'No cultural description available.'}</p>
+      </div>`;
+  } else if (tab === 'history') {
+    el.innerHTML = `
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:24px">
+        <div style="font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-faint);margin-bottom:14px">Historical Context</div>
+        <p style="font-size:15px;line-height:1.8;color:var(--text-dim)">${c.desc || 'No historical information available.'}</p>
+        <div style="margin-top:20px;padding-top:20px;border-top:1px solid var(--border)">
+          <div style="font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-faint);margin-bottom:8px">Key Facts</div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px">
+            ${histStatCard('Capital', c.capital, '🏛️')}
+            ${histStatCard('Region', `${c.subregion}, ${c.region}`, '🌍')}
+            ${histStatCard('Language(s)', c.language, '🗣️')}
+            ${histStatCard('Currency', c.currency, '💰')}
+          </div>
+        </div>
+      </div>`;
+  }
+}
+
+function histStatCard(label, value, icon) {
+  return `<div style="background:var(--surface2);border-radius:10px;padding:14px">
+    <div style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-faint);margin-bottom:6px">${icon} ${label}</div>
+    <div style="font-size:14px;font-weight:500;color:var(--text)">${value || '—'}</div>
+  </div>`;
+}
+
+function parsePopulation(popStr) {
+  if (!popStr) return 0;
+  const s = popStr.toUpperCase().replace(/,/g,'');
+  const num = parseFloat(s);
+  if (s.includes('B')) return num * 1e9;
+  if (s.includes('M')) return num * 1e6;
+  if (s.includes('K')) return num * 1e3;
+  return num || 0;
+}
+
+function parseArea(areaStr) {
+  if (!areaStr) return 0;
+  const s = areaStr.replace(/[^0-9.]/g,'');
+  return parseFloat(s) || 0;
+}
+
+function histCompare() {
+  const names = [
+    document.getElementById('hist-cmp-a').value,
+    document.getElementById('hist-cmp-b').value,
+    document.getElementById('hist-cmp-c').value
+  ].filter(n => n);
+  if (names.length < 2) { alert('Please select at least 2 countries to compare.'); return; }
+  const countries = names.map(n => COUNTRIES.find(c => c.name === n)).filter(Boolean);
+
+  document.getElementById('hist-welcome').style.display = 'none';
+  document.getElementById('hist-profile').style.display = 'none';
+  document.getElementById('hist-compare-view').style.display = 'block';
+
+  const cv = document.getElementById('hist-compare-view');
+  const metrics = [
+    { label: 'Flag', key: 'flag', render: v => flagImg(v, 28) },
+    { label: 'Capital', key: 'capital' },
+    { label: 'Region', key: 'region' },
+    { label: 'Subregion', key: 'subregion' },
+    { label: 'Population', key: 'pop' },
+    { label: 'Area', key: 'area' },
+    { label: 'Currency', key: 'currency' },
+    { label: 'Language(s)', key: 'language' },
+  ];
+
+  cv.innerHTML = `
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px">
+      <button class="btn-ghost" onclick="document.getElementById('hist-welcome').style.display='flex';document.getElementById('hist-compare-view').style.display='none'" style="font-size:12px;padding:10px 16px">← Back</button>
+      <h2 style="font-family:var(--serif);font-size:24px">Country Comparison</h2>
+    </div>
+    <div style="display:flex;gap:12px;overflow-x:auto;padding-bottom:12px">
+      ${countries.map(c => `
+        <div class="hist-compare-col">
+          <div style="text-align:center;margin-bottom:16px">
+            ${flagImg(c.flag, 48, 'flag-img-xl')}
+            <div style="font-family:var(--serif);font-size:20px;font-weight:700;margin-top:8px">${c.name}</div>
+          </div>
+          ${metrics.map(m => `
+            <div class="hist-compare-metric">
+              <div class="hist-compare-label">${m.label}</div>
+              <div class="hist-compare-val">${m.render ? m.render(c[m.key]) : (c[m.key] || '—')}</div>
+            </div>`).join('')}
+          <button class="btn-ghost" style="width:100%;margin-top:12px;font-size:12px" onclick="histOpenCountry('${escStr(c.name)}')">Full Profile →</button>
+        </div>`).join('')}
+    </div>`;
+}
 
 function toggleTheme() {
   const isLight = document.body.classList.toggle('light-mode');
